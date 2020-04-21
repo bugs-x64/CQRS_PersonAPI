@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Globalization;
 
-namespace Persons
+namespace Persons.Service
 {
     /// <summary>
     /// Информация о личности.
@@ -32,10 +31,14 @@ namespace Persons
                 try
                 {
                     _birthDate = DateTime.Parse(value);
+
+                    
+                    var age = Convert.ToInt32(DateTime.UtcNow.ToString("yyyy"))- Convert.ToInt32(_birthDate.ToUniversalTime().ToString("yyyy"));
+                    Age = age <= 120 ? age : (int?)null;
                 }
                 catch (Exception e)
                 {
-                    throw new ArgumentException("Не удалось преобразовать в дату.",e);
+                    throw new ArgumentException($"Не удалось преобразовать в дату {value}.",e);
                 }
             }
         }
@@ -43,14 +46,7 @@ namespace Persons
         /// <summary>
         /// Возраст (кол-во полных лет).
         /// </summary>
-        public int? Age
-        {
-            get
-            {
-                var age = Convert.ToInt32(DateTime.UtcNow.ToString("yyyy"))- Convert.ToInt32(_birthDate.ToUniversalTime().ToString("yyyy"));
-                return age <= 120 ? age : (int?)null;
-            }
-        }
+        public int? Age { get; private set; }
 
         public override string ToString()
         {

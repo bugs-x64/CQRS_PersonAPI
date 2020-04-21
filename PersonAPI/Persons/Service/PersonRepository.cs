@@ -3,8 +3,9 @@ using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 using Dapper;
+using Persons.Abstractions;
 
-namespace Persons.Abstractions
+namespace Persons.Service
 {
     public class PersonRepository : IPersonRepository
     {
@@ -33,7 +34,7 @@ namespace Persons.Abstractions
             Person person;
             using (IDbConnection db = new SQLiteConnection(_connectionString))
             {
-                person = db.Query<Person>($"SELECT * FROM {repositoryName} WHERE Id = @id", new { id = id.ToString()}).FirstOrDefault();
+                person = db.Query<Person>($"SELECT id,name,birthdate FROM {repositoryName} WHERE Id = @id", new { id = id.ToString()}).FirstOrDefault();
             }
 
             return person;

@@ -1,12 +1,14 @@
 ﻿using System;
+using Persons.Abstractions;
 
-namespace Persons.Abstractions
+namespace Persons.Service
 {
-    public class GetPersonQuery : IQuery<Person>
+    public class GetPersonQuery : IQuery<PersonDto>
     {
-        public Person Execute()
+        public Guid Id { get;}
+        public GetPersonQuery(Guid id)
         {
-            throw new NotImplementedException();
+            Id = id;
         }
     }
 }

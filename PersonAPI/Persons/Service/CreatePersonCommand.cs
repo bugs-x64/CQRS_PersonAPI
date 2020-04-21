@@ -1,27 +1,20 @@
-﻿using System;
+﻿using Persons.Abstractions;
 
-namespace Persons.Abstractions
+namespace Persons.Service
 {
     /// <summary>
     /// Создать запись о личности.
     /// </summary>
     public class CreatePersonCommand : ICommand
     {
-        private readonly Person _person;
-        private readonly IPersonRepository _repository;
+        public string Name { get; }
 
-        public CreatePersonCommand(Person person, IPersonRepository repository)
+        public string BirthDate { get; }
+
+        public CreatePersonCommand(string name, string birthDate)
         {
-            _person = person;
-            _repository = repository;
-        }
-
-        public void Execute()
-        {
-            if (_person.Id == Guid.Empty.ToString())
-                _person.Id = Guid.NewGuid().ToString();
-
-            _repository.Insert(_person);
+            Name = name;
+            BirthDate = birthDate;
         }
     }
 }

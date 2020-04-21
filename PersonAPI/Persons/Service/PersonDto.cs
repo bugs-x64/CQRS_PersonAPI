@@ -10,7 +10,7 @@ namespace Persons.Service
         /// <summary>
         /// Идентификатор(Guid).
         /// </summary>
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Имя.
@@ -25,6 +25,6 @@ namespace Persons.Service
         /// <summary>
         /// Возраст (кол-во полных лет).
         /// </summary>
-        public int Age { get; set; }
+        public int? Age { get; set; }
     }
 }

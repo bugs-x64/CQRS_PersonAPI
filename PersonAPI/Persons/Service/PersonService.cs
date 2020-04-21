@@ -1,6 +1,5 @@
 ﻿using Nancy.Hosting.Self;
 using System;
-using System.Linq;
 
 namespace Persons.Service
 {
@@ -9,27 +8,25 @@ namespace Persons.Service
     /// </summary>
     public class PersonService 
     {
-        private readonly string[] _uris;
+        private readonly string _host;
         private readonly NancyHost _selfHost; 
 
-        public PersonService(params string[] uris)
+        public PersonService(string host)
         {
-            _uris = uris;
-
-            var baseUris = uris.Select(uri=>new Uri(uri)).ToArray();
-            _selfHost = new NancyHost(baseUris);
+            _host = host;
+            _selfHost = new NancyHost(new Uri(host));
         } 
 
         public void Start() 
         { 
             _selfHost.Start();
-            Console.WriteLine($"SelfHost running on {string.Join(",",_uris)}");
+            Console.WriteLine($"SelfHost running on {string.Join(",",_host)}");
         } 
 
         public void Stop() 
         { 
             _selfHost.Stop();
-            Console.WriteLine($"SelfHost stopped on {string.Join(",",_uris)}");
+            Console.WriteLine($"SelfHost stopped on {string.Join(",",_host)}");
         } 
     }
 }

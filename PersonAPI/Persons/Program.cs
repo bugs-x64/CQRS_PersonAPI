@@ -14,19 +14,22 @@ namespace Persons
 {
     class Program
     {
-        private static string _hosts;
+        private static string _host;
 
         static void Main(string[] args)
         {
 
             HostFactory.Run(x => 
             { 
-                x.AddCommandLineDefinition("hosts", s=> { _hosts = s; });
+                x.AddCommandLineDefinition("host", s =>
+                {
+                    _host = s;
+                });
                 x.ApplyCommandLine();
 
                 x.Service<PersonService>(s =>
                 {
-                    s.ConstructUsing(() => new PersonService(_hosts.Split(' ')));
+                    s.ConstructUsing(() => new PersonService(_host??"http://127.0.0.1:5000"));
                     s.WhenStarted(svc => svc.Start()); 
                     s.WhenStopped(svc => svc.Stop()); 
                 }); 

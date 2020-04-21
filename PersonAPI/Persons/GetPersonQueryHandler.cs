@@ -1,10 +1,28 @@
-﻿namespace Persons.Abstractions
+﻿using Persons.Abstractions;
+using Persons.Service;
+
+namespace Persons
 {
-    public class GetPersonQueryHandler : IQueryHandler<GetPersonQuery, Person> 
+    public class GetPersonQueryHandler : IQueryHandler<GetPersonQuery, PersonDto> 
     {
-        public Person Handle(GetPersonQuery query)
+        private readonly IPersonRepository _personRepository;
+
+        public GetPersonQueryHandler(IPersonRepository personRepository)
         {
-            throw new System.NotImplementedException();
+            _personRepository = personRepository;
+        }
+
+        public PersonDto Handle(GetPersonQuery query)
+        {
+            var result = _personRepository.Find(query.Id);
+
+            return new PersonDto
+            {
+                Id = result.Id,
+                Name = result.Name,
+                Age = result.Age,
+                BirthDate = result.BirthDate
+            };
         }
     }
 }
