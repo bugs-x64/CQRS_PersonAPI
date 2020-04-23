@@ -1,6 +1,7 @@
 ﻿namespace Persons.Abstractions
 {
-    public interface IQuery<out TResult>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1040:Avoid empty interfaces", Justification = "<Pending>")]
+    public interface IQuery
     {
     }
 }

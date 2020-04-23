@@ -6,7 +6,7 @@
     /// <typeparam name="TQuery">Класс реализующий интерфейс IQuery.</typeparam>
     /// <typeparam name="TResult">Тип возращаемого результата.</typeparam>
     public interface IQueryHandler<in TQuery, out TResult>
-        where TQuery : IQuery<TResult>
+        where TQuery : IQuery
     {
         TResult Handle(TQuery query);
     }
