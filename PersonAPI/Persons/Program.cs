@@ -1,22 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Persons.Abstractions;
 using Persons.Service;
 using Topshelf;
-using Topshelf.Runtime;
 
 namespace Persons
 {
-    class Program
+    internal static class Program
     {
         private static string _host;
 
-        static void Main(string[] args)
+        //todo подключить serilog
+        //todo подключить LibLog
+        private static void Main()
         {
 
             HostFactory.Run(x => 
