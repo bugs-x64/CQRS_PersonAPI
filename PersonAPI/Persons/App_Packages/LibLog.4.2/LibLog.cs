@@ -615,6 +615,7 @@ namespace Persons.Logging
         };
 
 #if !LIBLOG_PROVIDERS_ONLY
+        [SuppressMessage("Style", "IDE1005:Delegate invocation can be simplified.", Justification = "<Pending>")]
         private static void RaiseOnCurrentLogProviderSet()
         {
             if (s_onCurrentLogProviderSet != null)
@@ -785,7 +786,9 @@ namespace Persons.Logging.LogProviders
         {
             if (!IsLoggerAvailable())
             {
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
                 throw new InvalidOperationException("NLog.LogManager not found");
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
             }
             _getLoggerByNameDelegate = GetGetLoggerMethodCall();
         }
@@ -859,6 +862,7 @@ namespace Persons.Logging.LogProviders
         {
             private readonly dynamic _logger;
 
+            [SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "<Pending>")]
             private static Func<string, object, string, Exception, object> _logEventInfoFact;
 
             private static readonly object _levelTrace;
@@ -868,6 +872,7 @@ namespace Persons.Logging.LogProviders
             private static readonly object _levelError;
             private static readonly object _levelFatal;
 
+            [SuppressMessage("Performance", "CA1810:Initialize reference type static fields inline", Justification = "<Pending>")]
             static NLogLogger()
             {
                 try
@@ -875,7 +880,11 @@ namespace Persons.Logging.LogProviders
                     var logEventLevelType = Type.GetType("NLog.LogLevel, NLog");
                     if (logEventLevelType == null)
                     {
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
+#pragma warning disable CA1065 // Do not raise exceptions in unexpected locations
                         throw new InvalidOperationException("Type NLog.LogLevel was not found.");
+#pragma warning restore CA1065 // Do not raise exceptions in unexpected locations
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
                     }
 
                     var levelFields = logEventLevelType.GetFieldsPortable().ToList();
@@ -889,7 +898,11 @@ namespace Persons.Logging.LogProviders
                     var logEventInfoType = Type.GetType("NLog.LogEventInfo, NLog");
                     if (logEventInfoType == null)
                     {
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
+#pragma warning disable CA1065 // Do not raise exceptions in unexpected locations
                         throw new InvalidOperationException("Type NLog.LogEventInfo was not found.");
+#pragma warning restore CA1065 // Do not raise exceptions in unexpected locations
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
                     }
                     MethodInfo createLogEventInfoMethodInfo = logEventInfoType.GetMethodPortable("Create",
                         logEventLevelType, typeof(string), typeof(Exception), typeof(IFormatProvider), typeof(string), typeof(object[]));
@@ -905,7 +918,9 @@ namespace Persons.Logging.LogProviders
                     _logEventInfoFact = Expression.Lambda<Func<string, object, string, Exception, object>>(createLogEventInfoMethodCall,
                         loggerNameParam, levelParam, messageParam, exceptionParam).Compile();
                 }
+#pragma warning disable CA1031 // Do not catch general exception types
                 catch { }
+#pragma warning restore CA1031 // Do not catch general exception types
             }
 
             internal NLogLogger(dynamic logger)
@@ -1127,7 +1142,9 @@ namespace Persons.Logging.LogProviders
         {
             if (!IsLoggerAvailable())
             {
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
                 throw new InvalidOperationException("log4net.LogManager not found");
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
             }
             _getLoggerByNameDelegate = GetGetLoggerMethodCall();
         }
@@ -1239,9 +1256,11 @@ namespace Persons.Logging.LogProviders
             private readonly Func<object, object, bool> _isEnabledForDelegate;
             private readonly Action<object, object> _logDelegate;
             private readonly Func<object, Type, object, string, Exception, object> _createLoggingEvent;
+            [SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "<Pending>")]
             private Action<object, string, object> _loggingEventPropertySetter;
 
             [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "ILogger")]
+            [SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
             internal Log4NetLogger(dynamic logger)
             {
                 _logger = logger.Logger;
@@ -1519,6 +1538,7 @@ namespace Persons.Logging.LogProviders
         }
 
         [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "EnterpriseLibrary")]
+        [SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
         public EntLibLogProvider()
         {
             if (!IsLoggerAvailable())
@@ -1676,7 +1696,9 @@ namespace Persons.Logging.LogProviders
         {
             if (!IsLoggerAvailable())
             {
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
                 throw new InvalidOperationException("Serilog.Log not found");
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
             }
             _getLoggerByNameDelegate = GetForContextMethodCall();
         }
@@ -1784,7 +1806,9 @@ namespace Persons.Logging.LogProviders
                 var logEventLevelType = Type.GetType("Serilog.Events.LogEventLevel, Serilog");
                 if (logEventLevelType == null)
                 {
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
                     throw new InvalidOperationException("Type Serilog.Events.LogEventLevel was not found.");
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
                 }
                 DebugLevel = Enum.Parse(logEventLevelType, "Debug", false);
                 ErrorLevel = Enum.Parse(logEventLevelType, "Error", false);
@@ -1797,7 +1821,9 @@ namespace Persons.Logging.LogProviders
                 var loggerType = Type.GetType("Serilog.ILogger, Serilog");
                 if (loggerType == null)
                 {
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
                     throw new InvalidOperationException("Type Serilog.ILogger was not found.");
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
                 }
                 MethodInfo isEnabledMethodInfo = loggerType.GetMethodPortable("IsEnabled", logEventLevelType);
                 ParameterExpression instanceParam = Expression.Parameter(typeof(object));
@@ -1937,7 +1963,9 @@ namespace Persons.Logging.LogProviders
         {
             if (!IsLoggerAvailable())
             {
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
                 throw new InvalidOperationException("Gibraltar.Agent.Log (Loupe) not found");
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
             }
 
             _logWriteDelegate = GetLogWriteDelegate();
@@ -2252,6 +2280,7 @@ namespace Persons.Logging.LogProviders
             _onDispose = onDispose;
         }
 
+        [SuppressMessage("Style", "IDE1005:Delegate invocation can be simplified.", Justification = "<Pending>")]
         public void Dispose()
         {
             if(_onDispose != null)
