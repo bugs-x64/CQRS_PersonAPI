@@ -1,7 +1,4 @@
-﻿using System;
-using Nancy;
-using Nancy.ModelBinding;
-using Nancy.Routing;
+﻿using Nancy;
 
 namespace Persons.Service
 {

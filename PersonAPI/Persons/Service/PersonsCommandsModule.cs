@@ -11,34 +11,54 @@ namespace Persons.Service
         private readonly ICommandHandler<CreatePersonCommand, Guid> _commandHandler;
         private const string path = RouteConstants.Root + RouteConstants.Version + "/persons";
 
-        public PersonsCommandsModule(ICommandHandler<CreatePersonCommand,Guid> commandHandler) : base(path)
+        public PersonsCommandsModule(ICommandHandler<CreatePersonCommand, Guid> commandHandler) : base(path)
         {
             _commandHandler = commandHandler;
 
             Post("/", _ => CreatePerson());
         }
 
-        private Negotiator CreatePerson()
+        private object CreatePerson()
         {
-            PersonDto person;
+            if (!TryGetCommand(out var createPersonCommand, out var negotiator)) 
+                return negotiator;
+
             try
             {
-                person = this.Bind<PersonDto>();
+                var personId = _commandHandler.Execute(createPersonCommand);
+                return Negotiate
+                    .WithModel("Created")
+                    .WithStatusCode(HttpStatusCode.Created)
+                    .WithHeader("Location", path + "/" + personId);
+            }
+            catch (UnprocessableEntityException e)
+            {
+                return Negotiate
+                    .WithStatusCode(HttpStatusCode.UnprocessableEntity)
+                    .WithReasonPhrase("Cозданная сущность невалидна");
+            }
+        }
+
+        private bool TryGetCommand(out CreatePersonCommand createPersonCommand, out Negotiator negotiator)
+        {
+            createPersonCommand = null;
+            negotiator = null;
+            try
+            {
+                var person = this.Bind<PersonDto>();
+                createPersonCommand = new CreatePersonCommand(person.Name, person.BirthDay);
             }
             catch
             {
-                return Negotiate
+                //todo разобраться с badrequest, postman почему то ожидает ответа, если пришли некорретные данные
+                negotiator = Negotiate
                     .WithStatusCode(HttpStatusCode.BadRequest)
-                    .WithReasonPhrase("Ошибка десериализации");
+                    .WithReasonPhrase("Невозможно создать команду из полученных данных");
+
+                return false;
             }
 
-            var createPersonCommand = new CreatePersonCommand(person.Name, person.BirthDate);
-
-            var result = _commandHandler.Execute(createPersonCommand);
-
-            return Negotiate
-                .WithModel(new PersonDto())
-                .WithHeader("Location", path + "/" + result);
+            return true;
         }
     }
 }

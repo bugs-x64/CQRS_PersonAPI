@@ -1,11 +1,8 @@
 ﻿using System;
-using Autofac;
 using Nancy;
 using Nancy.ModelBinding;
 using Nancy.Responses.Negotiation;
-using Nancy.Routing;
 using Persons.Abstractions;
-
 namespace Persons.Service
 {
     public sealed class PersonsQueriesModule:NancyModule
@@ -17,25 +14,17 @@ namespace Persons.Service
         {
             _queryHandler = queryHandler;
 
-            Get("/{id}",_=>CreatePerson());
+            Get("/{id}",value=>GetPerson(value.id));
         }
         
-        private Negotiator CreatePerson()
+        private Negotiator GetPerson(Guid id)
         {
-            PersonDto person;
-            try
-            {
-                 person = this.Bind<PersonDto>();
-            }
-            catch
-            {
-                return Negotiate.WithStatusCode(HttpStatusCode.BadRequest).WithReasonPhrase("Ошибка десериализации");
-            }
-
-            var getPersonQuery = new GetPersonQuery(Guid.Empty);
-            _queryHandler.Handle(getPersonQuery);
+            //todo проработать получение person 
+            var getPersonQuery = new GetPersonQuery(id);
+           var result =  _queryHandler.Handle(getPersonQuery);
             
-            return Negotiate.WithModel(new PersonDto()).WithHeader("Location","");
+            return Negotiate
+                .WithModel(result);
         }
     }
 }
