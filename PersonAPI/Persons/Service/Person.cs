@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Persons.Service
 {
@@ -8,7 +9,7 @@ namespace Persons.Service
     public class Person
     {
         private Guid _id;
-        private DateTime _birthDate;
+        private DateTime _birthDay;
 
         /// <summary>
         /// Идентификатор(Guid).
@@ -23,17 +24,22 @@ namespace Persons.Service
         /// <summary>
         /// Дата рождения.
         /// </summary>
-        public string BirthDate
+        public string BirthDay
         {
-            get => $"{_birthDate:yyyy-MM-d}";
+            get => $"{_birthDay:yyyy-MM-d}";
             set
             {
                 try
                 {
-                    _birthDate = DateTime.Parse(value);
+                    const string yearFormat = "yyyy";
+                    var dateTimeFormatInfo = new CultureInfo(GlobalConstants.Locale);
 
+                    _birthDay = DateTime.Parse(value,dateTimeFormatInfo);
                     
-                    var age = Convert.ToInt32(DateTime.UtcNow.ToString("yyyy"))- Convert.ToInt32(_birthDate.ToUniversalTime().ToString("yyyy"));
+                    var yearBirth = _birthDay.ToUniversalTime().ToString(yearFormat,dateTimeFormatInfo);
+                    var yearNow = DateTime.UtcNow.ToString(yearFormat,dateTimeFormatInfo);
+                    var age = Convert.ToInt32(yearNow,dateTimeFormatInfo)- Convert.ToInt32(yearBirth,dateTimeFormatInfo);
+
                     Age = age <= 120 ? age : (int?)null;
                 }
                 catch (Exception e)
@@ -50,7 +56,7 @@ namespace Persons.Service
 
         public override string ToString()
         {
-            return $"id:{_id}, name:{Name}, BirthDate:{BirthDate}, Age:{Age}";
+            return $"id:{_id}, name:{Name}, BirthDay:{BirthDay}, Age:{Age}";
         }
     }
 }

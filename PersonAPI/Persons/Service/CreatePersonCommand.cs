@@ -1,4 +1,5 @@
-﻿using Persons.Abstractions;
+﻿using System.Linq;
+using Persons.Abstractions;
 
 namespace Persons.Service
 {
@@ -9,12 +10,15 @@ namespace Persons.Service
     {
         public string Name { get; }
 
-        public string BirthDate { get; }
+        public string BirthDay { get; }
 
-        public CreatePersonCommand(string name, string birthDate)
+        public CreatePersonCommand(string name, string birthDay)
         {
+            if(name.IsNullOrEmpty() || birthDay.IsNullOrEmpty())
+                throw new UnprocessableEntityException($"Ошибка валидации команды {typeof(CreatePersonCommand)}");
+
             Name = name;
-            BirthDate = birthDate;
+            BirthDay = birthDay;
         }
     }
 }

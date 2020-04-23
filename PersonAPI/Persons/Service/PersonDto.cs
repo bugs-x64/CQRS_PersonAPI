@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Persons.Service
+﻿namespace Persons.Service
 {
     /// <summary>
     /// Dto информации о Person.
@@ -20,7 +18,7 @@ namespace Persons.Service
         /// <summary>
         /// Дата рождения.
         /// </summary>
-        public string BirthDate { get; set; }
+        public string BirthDay { get; set; }
 
         /// <summary>
         /// Возраст (кол-во полных лет).
