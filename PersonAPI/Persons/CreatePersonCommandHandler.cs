@@ -16,13 +16,21 @@ namespace Persons
         public Guid Execute(CreatePersonCommand query)
         {
             var newPersonGuid = Guid.NewGuid();
-
-            var person = new Person
+            Person person;
+            try
             {
-                BirthDate = query.BirthDate,
-                Name = query.Name,
-                Id = newPersonGuid.ToString()
-            };
+                person = new Person
+                {
+                    BirthDay = query?.BirthDay,
+                    Name = query?.Name,
+                    Id = newPersonGuid.ToString()
+                };
+            }
+            catch (Exception e)
+            {
+                throw new UnprocessableEntityException($"Ошибка валидации {typeof(Person)}",e);
+            }
+
             _personRepository.Insert(person);
 
             return newPersonGuid;

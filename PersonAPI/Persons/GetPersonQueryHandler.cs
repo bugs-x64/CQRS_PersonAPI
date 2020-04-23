@@ -1,4 +1,5 @@
-﻿using Persons.Abstractions;
+﻿using System;
+using Persons.Abstractions;
 using Persons.Service;
 
 namespace Persons
@@ -14,6 +15,9 @@ namespace Persons
 
         public PersonDto Handle(GetPersonQuery query)
         {
+            if (query is null) 
+                throw new ArgumentException(Resources.NullQueryBody,nameof(query));
+
             var result = _personRepository.Find(query.Id);
 
             return new PersonDto
@@ -21,7 +25,7 @@ namespace Persons
                 Id = result.Id,
                 Name = result.Name,
                 Age = result.Age,
-                BirthDate = result.BirthDate
+                BirthDay = result.BirthDay
             };
         }
     }
