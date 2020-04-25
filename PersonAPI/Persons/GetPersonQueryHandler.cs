@@ -1,9 +1,13 @@
 ﻿using System;
 using Persons.Abstractions;
 using Persons.Service;
+using Persons.Service.Exceptions;
 
 namespace Persons
 {
+    /// <summary>
+    /// Обработчик запроса на получение <see cref="PersonDto"/> из репозитория.
+    /// </summary>
     public class GetPersonQueryHandler : IQueryHandler<GetPersonQuery, PersonDto> 
     {
         private readonly IPersonRepository _personRepository;
@@ -19,6 +23,9 @@ namespace Persons
                 throw new ArgumentException(Resources.NullQueryBody,nameof(query));
 
             var result = _personRepository.Find(query.Id);
+
+            if (result?.Id is null)
+                throw new EntityNotFoundException<Person>();
 
             return new PersonDto
             {

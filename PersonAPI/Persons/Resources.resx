@@ -132,4 +132,16 @@
   <data name="PersonService_Stop_SelfHost" xml:space="preserve">
     <value>SelfHost stopped on {0}</value>
   </data>
+  <data name="EntityNotFoundException" xml:space="preserve">
+    <value>Не найдена сущность {0}.</value>
+  </data>
+  <data name="UnprocessableEntityException" xml:space="preserve">
+    <value>Ошибка валидации {0}</value>
+  </data>
+  <data name="UnableToCreateCommandFromReceivedData" xml:space="preserve">
+    <value>Невозможно создать команду из полученных данных</value>
+  </data>
+  <data name="CreateCommandException" xml:space="preserve">
+    <value>Ошибка создания команды {0}</value>
+  </data>
 </root>

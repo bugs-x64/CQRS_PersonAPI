@@ -3,6 +3,7 @@ using Nancy;
 using Nancy.ModelBinding;
 using Nancy.Responses.Negotiation;
 using Persons.Abstractions;
+using Persons.Service.Exceptions;
 
 namespace Persons.Service
 {
@@ -31,11 +32,11 @@ namespace Persons.Service
                     .WithStatusCode(HttpStatusCode.Created)
                     .WithHeader("Location", path + "/" + personId);
             }
-            catch (UnprocessableEntityException e)
+            catch (UnprocessableEntityException<Person> e)
             {
                 return Negotiate
                     .WithStatusCode(HttpStatusCode.UnprocessableEntity)
-                    .WithReasonPhrase("Cозданная сущность невалидна");
+                    .WithReasonPhrase(e.Message);
             }
         }
 
@@ -48,12 +49,14 @@ namespace Persons.Service
                 var person = this.Bind<PersonDto>();
                 createPersonCommand = new CreatePersonCommand(person.Name, person.BirthDay);
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 //todo разобраться с badrequest, postman почему то ожидает ответа, если пришли некорретные данные
                 negotiator = Negotiate
                     .WithStatusCode(HttpStatusCode.BadRequest)
-                    .WithReasonPhrase("Невозможно создать команду из полученных данных");
+                    .WithReasonPhrase(Resources.UnableToCreateCommandFromReceivedData);
 
                 return false;
             }

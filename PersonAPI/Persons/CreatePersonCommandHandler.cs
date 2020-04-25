@@ -1,6 +1,7 @@
 ﻿using System;
 using Persons.Abstractions;
 using Persons.Service;
+using Persons.Service.Exceptions;
 
 namespace Persons
 {
@@ -28,7 +29,7 @@ namespace Persons
             }
             catch (Exception e)
             {
-                throw new UnprocessableEntityException($"Ошибка валидации {typeof(Person)}",e);
+                throw new UnprocessableEntityException<Person>(e);
             }
 
             _personRepository.Insert(person);

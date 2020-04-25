@@ -61,6 +61,24 @@ namespace Persons {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ошибка создания команды {0}.
+        /// </summary>
+        internal static string CreateCommandException {
+            get {
+                return ResourceManager.GetString("CreateCommandException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не найдена сущность {0}..
+        /// </summary>
+        internal static string EntityNotFoundException {
+            get {
+                return ResourceManager.GetString("EntityNotFoundException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Передан пустой объект запроса..
         /// </summary>
         internal static string NullQueryBody {
@@ -102,6 +120,24 @@ namespace Persons {
         internal static string Repository_connection_established {
             get {
                 return ResourceManager.GetString("Repository_connection_established", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Невозможно создать команду из полученных данных.
+        /// </summary>
+        internal static string UnableToCreateCommandFromReceivedData {
+            get {
+                return ResourceManager.GetString("UnableToCreateCommandFromReceivedData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка валидации {0}.
+        /// </summary>
+        internal static string UnprocessableEntityException {
+            get {
+                return ResourceManager.GetString("UnprocessableEntityException", resourceCulture);
             }
         }
     }

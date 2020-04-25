@@ -101,7 +101,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Packages\LibLog.4.2\LibLog.cs" />
-    <Compile Include="GlobalConstants.cs" />
+    <Compile Include="Service\Exceptions\EntityNotFoundException.cs" />
+    <Compile Include="Service\Constants\GlobalConstants.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -112,28 +113,28 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Service\Extensions.cs" />
-    <Compile Include="Service\UnprocessableEntityException.cs" />
+    <Compile Include="Service\Extensions\StringExtensions.cs" />
+    <Compile Include="Service\Exceptions\UnprocessableEntityException.cs" />
     <Compile Include="Service\DefaultBootstrapper.cs" />
-    <Compile Include="Service\HomeModule.cs" />
-    <Compile Include="Service\PersonsCommandsModule.cs" />
-    <Compile Include="Service\RouteConstants.cs" />
-    <Compile Include="Service\PersonDto.cs" />
+    <Compile Include="Service\Modules\HomeModule.cs" />
+    <Compile Include="Service\Modules\PersonsCommandsModule.cs" />
+    <Compile Include="Service\Constants\RouteConstants.cs" />
+    <Compile Include="Service\Dto\PersonDto.cs" />
     <Compile Include="GetPersonQueryHandler.cs" />
     <Compile Include="CreatePersonCommandHandler.cs" />
     <Compile Include="Service\PersonService.cs" />
-    <Compile Include="Service\CreatePersonCommand.cs" />
-    <Compile Include="Service\GetPersonQuery.cs" />
+    <Compile Include="Service\Commands\CreatePersonCommand.cs" />
+    <Compile Include="Service\Queries\GetPersonQuery.cs" />
     <Compile Include="Abstractions\ICommand.cs" />
     <Compile Include="Abstractions\IPersonRepository.cs" />
     <Compile Include="Abstractions\IQuery.cs" />
     <Compile Include="Abstractions\IQueryHandler.cs" />
     <Compile Include="Abstractions\ICommandHandler.cs" />
-    <Compile Include="Service\PersonRepository.cs" />
-    <Compile Include="Service\Person.cs" />
+    <Compile Include="Service\Repositories\PersonRepository.cs" />
+    <Compile Include="Service\Models\Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\PersonsQueriesModule.cs" />
+    <Compile Include="Service\Modules\PersonsQueriesModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -172,6 +173,7 @@
     <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetFramework.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.112.1\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.112.1\build\net40\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

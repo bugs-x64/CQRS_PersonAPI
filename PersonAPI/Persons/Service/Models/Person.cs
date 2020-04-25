@@ -32,7 +32,7 @@ namespace Persons.Service
                 try
                 {
                     const string yearFormat = "yyyy";
-                    var dateTimeFormatInfo = new CultureInfo(GlobalConstants.Locale);
+                    var dateTimeFormatInfo = new DateTimeFormatInfo();
 
                     _birthDay = DateTime.Parse(value,dateTimeFormatInfo);
                     

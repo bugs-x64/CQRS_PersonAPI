@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Persons.Abstractions;
 
 namespace Persons.Service
@@ -15,7 +16,7 @@ namespace Persons.Service
         public CreatePersonCommand(string name, string birthDay)
         {
             if(name.IsNullOrEmpty() || birthDay.IsNullOrEmpty())
-                throw new UnprocessableEntityException($"Ошибка валидации команды {typeof(CreatePersonCommand)}");
+                throw new Exception(Resources.CreateCommandException.DefaultFormat(nameof(CreatePersonCommand)));
 
             Name = name;
             BirthDay = birthDay;
