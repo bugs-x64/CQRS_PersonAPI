@@ -1,20 +1,24 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Persons.Service
+namespace Persons.Service.Models
 {
     /// <summary>
     /// Информация о личности.
     /// </summary>
     public class Person
     {
-        private Guid _id;
         private DateTime _birthDay;
+        private Guid _id;
 
         /// <summary>
         /// Идентификатор(Guid).
         /// </summary>
-        public string Id { get => _id.ToString(); set => _id = Guid.Parse(value); }
+        public string Id
+        {
+            get => _id.ToString();
+            set => _id = Guid.Parse(value);
+        }
 
         /// <summary>
         /// Имя.
@@ -34,17 +38,18 @@ namespace Persons.Service
                     const string yearFormat = "yyyy";
                     var dateTimeFormatInfo = new DateTimeFormatInfo();
 
-                    _birthDay = DateTime.Parse(value,dateTimeFormatInfo);
-                    
-                    var yearBirth = _birthDay.ToUniversalTime().ToString(yearFormat,dateTimeFormatInfo);
-                    var yearNow = DateTime.UtcNow.ToString(yearFormat,dateTimeFormatInfo);
-                    var age = Convert.ToInt32(yearNow,dateTimeFormatInfo)- Convert.ToInt32(yearBirth,dateTimeFormatInfo);
+                    _birthDay = DateTime.Parse(value, dateTimeFormatInfo);
 
-                    Age = age <= 120 ? age : (int?)null;
+                    var yearBirth = _birthDay.ToUniversalTime().ToString(yearFormat, dateTimeFormatInfo);
+                    var yearNow = DateTime.UtcNow.ToString(yearFormat, dateTimeFormatInfo);
+                    var age = Convert.ToInt32(yearNow, dateTimeFormatInfo) -
+                              Convert.ToInt32(yearBirth, dateTimeFormatInfo);
+
+                    Age = age <= 120 ? age : (int?) null;
                 }
                 catch (Exception e)
                 {
-                    throw new ArgumentException($"Не удалось преобразовать в дату {value}.",e);
+                    throw new ArgumentException($"Не удалось преобразовать в дату {value}.", e);
                 }
             }
         }

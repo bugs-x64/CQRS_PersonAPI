@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Persons.Service.Constants;
 
-namespace Persons.Service
+namespace Persons.Service.Extensions
 {
     /// <summary>
     /// Расширения для строк.

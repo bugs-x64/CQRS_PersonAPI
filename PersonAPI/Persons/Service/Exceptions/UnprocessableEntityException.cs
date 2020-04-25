@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using Persons.Service.Extensions;
 
 namespace Persons.Service.Exceptions
 {
@@ -7,14 +8,14 @@ namespace Persons.Service.Exceptions
     /// Ошибка валидации сущности.
     /// </summary>
     [Serializable]
-    public class UnprocessableEntityException<T>:Exception
+    public class UnprocessableEntityException<T> : Exception
     {
         /// <summary>
         /// Генерирует исключение валидации сущности <typeparamref name="T"/>.
         /// </summary>
         /// <typeparam name="T">Сущность, которую не удалось валидировать.</typeparam>
         public UnprocessableEntityException()
-            :base(message: Resources.UnprocessableEntityException.DefaultFormat(nameof(T)))
+            : base(Resources.UnprocessableEntityException.DefaultFormat(nameof(T)))
         {
         }
 
@@ -23,7 +24,7 @@ namespace Persons.Service.Exceptions
         /// </summary>
         /// <typeparam name="T">Сущность, которую не удалось валидировать.</typeparam>
         public UnprocessableEntityException(Exception innerException)
-            :base(Resources.UnprocessableEntityException.DefaultFormat(nameof(T)), innerException)
+            : base(Resources.UnprocessableEntityException.DefaultFormat(nameof(T)), innerException)
         {
         }
 

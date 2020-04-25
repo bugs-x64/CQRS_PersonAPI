@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Persons
+namespace Persons.Service.Constants
 {
     public static class GlobalConstants
     {

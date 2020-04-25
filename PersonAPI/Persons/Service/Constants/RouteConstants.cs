@@ -1,4 +1,4 @@
-﻿namespace Persons.Service
+﻿namespace Persons.Service.Constants
 {
     public static class RouteConstants
     {

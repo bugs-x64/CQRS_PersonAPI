@@ -1,5 +1,6 @@
 ﻿using System;
 using Persons.Service;
+using Persons.Service.Models;
 
 namespace Persons.Abstractions
 {

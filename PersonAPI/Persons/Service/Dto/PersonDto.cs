@@ -1,4 +1,4 @@
-﻿namespace Persons.Service
+﻿namespace Persons.Service.Dto
 {
     /// <summary>
     /// Dto информации о Person.

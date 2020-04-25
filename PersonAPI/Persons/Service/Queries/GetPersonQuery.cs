@@ -1,14 +1,15 @@
 ﻿using System;
 using Persons.Abstractions;
 
-namespace Persons.Service
+namespace Persons.Service.Queries
 {
     public class GetPersonQuery : IQuery
     {
-        public Guid Id { get;}
         public GetPersonQuery(Guid id)
         {
             Id = id;
         }
+
+        public Guid Id { get; }
     }
 }

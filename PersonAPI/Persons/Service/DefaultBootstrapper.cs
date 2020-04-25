@@ -1,7 +1,13 @@
 ﻿using System;
 using Nancy;
+using Nancy.Bootstrapper;
+using Nancy.Responses.Negotiation;
 using Nancy.TinyIoc;
 using Persons.Abstractions;
+using Persons.Service.Commands;
+using Persons.Service.Dto;
+using Persons.Service.Queries;
+using Persons.Service.Repositories;
 
 namespace Persons.Service
 {
@@ -11,12 +17,25 @@ namespace Persons.Service
 
         protected override void ConfigureApplicationContainer(TinyIoCContainer container)
         {
-            if (container == null) 
+            if (container == null)
                 return;
 
-            container.Register<ICommandHandler<CreatePersonCommand, Guid>, CreatePersonCommandHandler>().AsMultiInstance();
+            container.Register<ICommandHandler<CreatePersonCommand, Guid>, CreatePersonCommandHandler>()
+                .AsMultiInstance();
             container.Register<IQueryHandler<GetPersonQuery, PersonDto>, GetPersonQueryHandler>().AsMultiInstance();
             container.Register<IPersonRepository, PersonRepository>().AsSingleton();
+        }
+        protected override Func<ITypeCatalog, NancyInternalConfiguration> InternalConfiguration
+        {
+            get
+            {
+                var processors = new[]
+                {
+                    typeof(JsonProcessor)
+                };
+
+                return NancyInternalConfiguration.WithOverrides(x => x.ResponseProcessors = processors);
+            }
         }
     }
 }

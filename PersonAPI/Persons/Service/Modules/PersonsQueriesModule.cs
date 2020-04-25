@@ -1,28 +1,40 @@
 ﻿using System;
 using Nancy;
-using Nancy.ModelBinding;
 using Nancy.Responses.Negotiation;
 using Persons.Abstractions;
-namespace Persons.Service
-{
-    public sealed class PersonsQueriesModule:NancyModule
-    {
-        private readonly IQueryHandler<GetPersonQuery, PersonDto> _queryHandler;
-        private const string path = RouteConstants.Root+RouteConstants.Version+"/persons";
+using Persons.Service.Constants;
+using Persons.Service.Dto;
+using Persons.Service.Queries;
 
-        public PersonsQueriesModule(IQueryHandler<GetPersonQuery,PersonDto> queryHandler):base(path)
+namespace Persons.Service.Modules
+{
+    public sealed class PersonsQueriesModule : NancyModule
+    {
+        private const string path = RouteConstants.Root + RouteConstants.Version + "/persons";
+        private readonly IQueryHandler<GetPersonQuery, PersonDto> _queryHandler;
+
+        public PersonsQueriesModule(IQueryHandler<GetPersonQuery, PersonDto> queryHandler) : base(path)
         {
             _queryHandler = queryHandler;
 
-            Get("/{id}",value=>GetPerson(value.id));
+            Get("/{id}", value => GetPerson(value.id));
         }
-        
-        private Negotiator GetPerson(Guid id)
+
+        private Negotiator GetPerson(string id)
         {
-            //todo проработать получение person 
-            var getPersonQuery = new GetPersonQuery(id);
-           var result =  _queryHandler.Handle(getPersonQuery);
-            
+            Guid guid;
+            try
+            {
+                guid = Guid.Parse(id);
+            }
+            catch (System.FormatException)
+            {
+                return Negotiate.WithStatusCode(HttpStatusCode.BadRequest).WithModel("BadRequest");
+            }
+
+            var getPersonQuery = new GetPersonQuery(guid);
+            var result = _queryHandler.Handle(getPersonQuery);
+
             return Negotiate
                 .WithModel(result);
         }

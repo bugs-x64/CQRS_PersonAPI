@@ -3,14 +3,18 @@ using Nancy;
 using Nancy.ModelBinding;
 using Nancy.Responses.Negotiation;
 using Persons.Abstractions;
+using Persons.Service.Commands;
+using Persons.Service.Constants;
+using Persons.Service.Dto;
 using Persons.Service.Exceptions;
+using Persons.Service.Models;
 
-namespace Persons.Service
+namespace Persons.Service.Modules
 {
     public sealed class PersonsCommandsModule : NancyModule
     {
-        private readonly ICommandHandler<CreatePersonCommand, Guid> _commandHandler;
         private const string path = RouteConstants.Root + RouteConstants.Version + "/persons";
+        private readonly ICommandHandler<CreatePersonCommand, Guid> _commandHandler;
 
         public PersonsCommandsModule(ICommandHandler<CreatePersonCommand, Guid> commandHandler) : base(path)
         {
@@ -21,7 +25,7 @@ namespace Persons.Service
 
         private object CreatePerson()
         {
-            if (!TryGetCommand(out var createPersonCommand, out var negotiator)) 
+            if (!TryGetCommand(out var createPersonCommand, out var negotiator))
                 return negotiator;
 
             try
