@@ -30,7 +30,7 @@ namespace Persons.Service.Models
         /// </summary>
         public string BirthDay
         {
-            get => $"{_birthDay:yyyy-MM-d}";
+            get => $"{_birthDay:yyyy-MM-dd}";
             set
             {
                 try

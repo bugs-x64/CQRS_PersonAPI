@@ -18,16 +18,19 @@ namespace Persons
             _personRepository = personRepository;
         }
 
-        public Guid Execute(CreatePersonCommand query)
+        public Guid Execute(CreatePersonCommand command)
         {
+            if(command is null)
+                throw new ArgumentNullException(nameof(command));
+
             var newPersonGuid = Guid.NewGuid();
             Person person;
             try
             {
                 person = new Person
                 {
-                    BirthDay = query?.BirthDay,
-                    Name = query?.Name,
+                    BirthDay = command?.BirthDay,
+                    Name = command?.Name,
                     Id = newPersonGuid.ToString()
                 };
             }

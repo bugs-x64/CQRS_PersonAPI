@@ -525,12 +525,7 @@ namespace Persons.Logging
         /// </summary>
         /// <param name="name">The name.</param>
         /// <returns>An instance of <see cref="ILog"/></returns>
-#if LIBLOG_PUBLIC
-        public
-#else
-        internal
-#endif
-        static ILog GetLogger(string name)
+        public static ILog GetLogger(string name)
         {
             ILogProvider logProvider = CurrentLogProvider ?? ResolveLogProvider();
             return logProvider == null
@@ -730,7 +725,7 @@ namespace Persons.Logging.LogProviders
 #endif
     using System.Text.RegularExpressions;
 
-    internal abstract class LogProviderBase : ILogProvider
+    public abstract class LogProviderBase : ILogProvider
     {
         protected delegate IDisposable OpenNdc(string message);
         protected delegate IDisposable OpenMdc(string key, string value);
@@ -1681,7 +1676,7 @@ namespace Persons.Logging.LogProviders
         }
     }
 
-    internal class SerilogLogProvider : LogProviderBase
+    public class SerilogLogProvider : LogProviderBase
     {
         private readonly Func<string, object> _getLoggerByNameDelegate;
         private static bool s_providerIsAvailableOverride = true;

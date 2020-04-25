@@ -6,6 +6,6 @@ namespace Persons.Abstractions
         where TCommand : ICommand
     {
         /// <exception cref="ArgumentNullException"></exception>
-        TResult Execute(TCommand query);
+        TResult Execute(TCommand command);
     }
 }
