@@ -15,7 +15,7 @@ namespace Persons.Service.Exceptions
         /// </summary>
         /// <typeparam name="T">Сущность, которую не удалось валидировать.</typeparam>
         public UnprocessableEntityException()
-            : base(Resources.UnprocessableEntityException.DefaultFormat(nameof(T)))
+            : base(Resources.UnprocessableEntityException.DefaultFormat(typeof(T)))
         {
         }
 
@@ -24,7 +24,7 @@ namespace Persons.Service.Exceptions
         /// </summary>
         /// <typeparam name="T">Сущность, которую не удалось валидировать.</typeparam>
         public UnprocessableEntityException(Exception innerException)
-            : base(Resources.UnprocessableEntityException.DefaultFormat(nameof(T)), innerException)
+            : base(Resources.UnprocessableEntityException.DefaultFormat(typeof(T)), innerException)
         {
         }
 

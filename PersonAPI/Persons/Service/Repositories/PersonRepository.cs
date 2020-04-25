@@ -4,11 +4,13 @@ using System.Data.SQLite;
 using System.Linq;
 using Dapper;
 using Persons.Abstractions;
+using Persons.Service.Exceptions;
 using Persons.Service.Extensions;
 using Persons.Service.Models;
 
 namespace Persons.Service.Repositories
 {
+
     public class PersonRepository : IPersonRepository
     {
         private const string repositoryName = "persons";
@@ -33,28 +35,34 @@ namespace Persons.Service.Repositories
 
         public Person Find(Guid id)
         {
+            Person person;
+
             try
             {
-                Person person;
                 using (IDbConnection db = new SQLiteConnection(_connectionString))
                 {
                     person = db.Query<Person>($"SELECT id,name,birthday FROM {repositoryName} WHERE Id = @id",
                         new {id = id.ToString()}).FirstOrDefault();
                 }
 
-                return person;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw new Exception($"Не удалось получить запись из репозитория, ошибка {e.Message}", e);
             }
+
+            if(person?.Id is null)
+                throw new EntityNotFoundException<Person>();
+
+            return person;
         }
 
         public void Insert(Person item)
         {
             if (item is null)
-                throw new ArgumentException(Resources.PersonRepository_Insert_null_person_exception, nameof(item));
+                throw new ArgumentNullException(nameof(item),Resources.PersonRepository_Insert_null_person_exception);
+
             try
             {
                 using (IDbConnection db = new SQLiteConnection(_connectionString))

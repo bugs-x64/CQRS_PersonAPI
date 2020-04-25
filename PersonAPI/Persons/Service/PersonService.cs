@@ -14,8 +14,12 @@ namespace Persons.Service
 
         public PersonService(string host)
         {
+            var configuration = new HostConfiguration()
+            {
+                UrlReservations = new UrlReservations() { CreateAutomatically = true }
+            };
             _host = host;
-            _selfHost = new NancyHost(new Uri(host));
+            _selfHost = new NancyHost(configuration,new Uri(host));
         }
 
         public void Dispose()

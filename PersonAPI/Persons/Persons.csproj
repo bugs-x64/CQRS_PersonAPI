@@ -74,6 +74,12 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.9.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.Console, Version=3.1.1.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.Console.3.1.1\lib\net45\Serilog.Sinks.Console.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration" />
@@ -100,7 +106,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Packages\LibLog.4.2\LibLog.cs" />
+    <Compile Include="Service\Extensions\StreamExtensions.cs" />
+    <Compile Include="Service\LibLog.4.2\LibLog.cs" />
     <Compile Include="Service\Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Service\Constants\GlobalConstants.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -108,7 +115,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Resources.Designer.cs">
+    <Compile Include="Service\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -116,8 +123,8 @@
     <Compile Include="Service\Extensions\StringExtensions.cs" />
     <Compile Include="Service\Exceptions\UnprocessableEntityException.cs" />
     <Compile Include="Service\DefaultBootstrapper.cs" />
-    <Compile Include="Service\Modules\HomeModule.cs" />
-    <Compile Include="Service\Modules\PersonsCommandsModule.cs" />
+    <Compile Include="HomeModule.cs" />
+    <Compile Include="PersonsCommandsModule.cs" />
     <Compile Include="Service\Constants\RouteConstants.cs" />
     <Compile Include="Service\Dto\PersonDto.cs" />
     <Compile Include="GetPersonQueryHandler.cs" />
@@ -134,7 +141,7 @@
     <Compile Include="Service\Models\Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\Modules\PersonsQueriesModule.cs" />
+    <Compile Include="PersonsQueriesModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -157,7 +164,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources.resx">
+    <EmbeddedResource Include="Service\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>

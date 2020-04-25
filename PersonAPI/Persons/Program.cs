@@ -4,13 +4,11 @@ using Topshelf;
 
 namespace Persons
 {
-    internal static class Program
+    public static class Program
     {
         private static string _host;
 
-        //todo подключить serilog
-        //todo подключить LibLog
-        private static void Main()
+        public static void Main()
         {
 
             HostFactory.Run(x => 

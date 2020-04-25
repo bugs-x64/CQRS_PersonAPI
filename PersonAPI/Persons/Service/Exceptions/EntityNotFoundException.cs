@@ -4,10 +4,14 @@ using Persons.Service.Extensions;
 
 namespace Persons.Service.Exceptions
 {
+    /// <summary>
+    /// Ошибка не найденной сущности.
+    /// </summary>
+    /// <typeparam name="T">Тип сущности.</typeparam>
     [Serializable]
     public class EntityNotFoundException<T> : Exception
     {
-        public EntityNotFoundException() : base(Resources.EntityNotFoundException.DefaultFormat(nameof(T)))
+        public EntityNotFoundException() : base(Resources.EntityNotFoundException.DefaultFormat(typeof(T)))
         {
         }
 

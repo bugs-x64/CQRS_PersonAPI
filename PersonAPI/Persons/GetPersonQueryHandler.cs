@@ -2,8 +2,6 @@
 using Persons.Abstractions;
 using Persons.Service;
 using Persons.Service.Dto;
-using Persons.Service.Exceptions;
-using Persons.Service.Models;
 using Persons.Service.Queries;
 
 namespace Persons
@@ -23,12 +21,9 @@ namespace Persons
         public PersonDto Handle(GetPersonQuery query)
         {
             if (query is null) 
-                throw new ArgumentException(Resources.NullQueryBody,nameof(query));
+                throw new ArgumentNullException(nameof(query),Resources.NullQueryBody);
 
             var result = _personRepository.Find(query.Id);
-
-            if (result?.Id is null)
-                throw new EntityNotFoundException<Person>();
 
             return new PersonDto
             {

@@ -12,7 +12,7 @@ namespace Persons.Service.Commands
         public CreatePersonCommand(string name, string birthDay)
         {
             if (name.IsNullOrEmpty() || birthDay.IsNullOrEmpty())
-                throw new Exception(Resources.CreateCommandException.DefaultFormat(nameof(CreatePersonCommand)));
+                throw new ArgumentNullException(Resources.CreateCommandException.DefaultFormat(nameof(CreatePersonCommand)));
 
             Name = name;
             BirthDay = birthDay;

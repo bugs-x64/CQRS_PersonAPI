@@ -1,6 +1,5 @@
 ﻿using System;
 using Persons.Abstractions;
-using Persons.Service;
 using Persons.Service.Commands;
 using Persons.Service.Exceptions;
 using Persons.Service.Models;
