@@ -4,6 +4,8 @@ using Nancy.Responses.Negotiation;
 using Persons.Abstractions;
 using Persons.Service.Constants;
 using Persons.Service.Dto;
+using Persons.Service.Exceptions;
+using Persons.Service.Models;
 using Persons.Service.Queries;
 
 namespace Persons
@@ -29,16 +31,28 @@ namespace Persons
             }
             catch (FormatException)
             {
-                return Negotiate
-                    .WithStatusCode(HttpStatusCode.BadRequest)
-                    .WithModel("BadRequest");
+                return NotFound();
             }
 
-            var getPersonQuery = new GetPersonQuery(guid);
-            var result = _queryHandler.Handle(getPersonQuery);
+            try
+            {
+                var getPersonQuery = new GetPersonQuery(guid);
+                var result = _queryHandler.Handle(getPersonQuery);
 
+                return Negotiate
+                    .WithModel(result);
+            }
+            catch(EntityNotFoundException<Person>)
+            {
+                return NotFound();
+            }
+        }
+
+        private Negotiator NotFound()
+        {
             return Negotiate
-                .WithModel(result);
+                .WithStatusCode(HttpStatusCode.NotFound)
+                .WithModel("NotFound");//если не добавить такую строку, при открытии в браузере будет падать ошибка 500(актуально только для get запросов).
         }
     }
 }

@@ -14,8 +14,8 @@ namespace Persons.IntegrationTests
     [TestClass]
     public class GetPersonTests
     {
-        private readonly string _url = GlobalParameters.Host + "/api/v1/persons";
-        private string _personPathSegment;
+        private readonly string _getPersonUrl = GlobalParameters.Host + "/api/v1/persons";
+        private string _newPersonLocationPath;
 
         [TestInitialize]
         [Timeout(GlobalParameters.TestTimeoutMilliseconds)]
@@ -27,19 +27,18 @@ namespace Persons.IntegrationTests
                 BirthDay = "1964-05-05"
             };
 
-           var result = await _url
-                .WithTimeout(GlobalParameters.RequestTimeoutSeconds)
+           var result = await _getPersonUrl
                 .PostJsonAsync(person);
 
-           _personPathSegment = result.Headers.Location.ToString();
+           _newPersonLocationPath = result.Headers.Location.ToString();
         }
 
         [TestMethod]
         [Timeout(GlobalParameters.TestTimeoutMilliseconds)]
         public async Task GetPerson_WhenCorrectData_ReturnOk()
         {
-            var message = await (GlobalParameters.Host + _personPathSegment)
-                .WithTimeout(GlobalParameters.RequestTimeoutSeconds)
+            var message = await GlobalParameters.Host
+                .AppendPathSegment(_newPersonLocationPath)
                 .GetAsync();
 
           Assert.AreEqual(HttpStatusCode.OK,message.StatusCode);
@@ -50,8 +49,7 @@ namespace Persons.IntegrationTests
         public async Task  GetPerson_WhenCorrectData_ReturnJsonDto()
         {
             var message = await GlobalParameters.Host
-                .WithTimeout(GlobalParameters.RequestTimeoutSeconds)
-                .AppendPathSegment(_personPathSegment)
+                .AppendPathSegment(_newPersonLocationPath)
                 .GetStringAsync();
 
             var qwe = JsonConvert.DeserializeObject<PersonDto>(message);
@@ -63,9 +61,8 @@ namespace Persons.IntegrationTests
         {
             try
             {
-                await _url
-                    .WithTimeout(GlobalParameters.RequestTimeoutSeconds)
-                    .AppendPathSegment($"{_personPathSegment}/{Guid.NewGuid()}")
+                await _getPersonUrl
+                    .AppendPathSegment($"/{Guid.NewGuid()}")
                     .GetAsync();
             }
             catch (FlurlHttpException e)
@@ -80,9 +77,8 @@ namespace Persons.IntegrationTests
         {
             try
             {
-                await _url
-                    .WithTimeout(GlobalParameters.RequestTimeoutSeconds)
-                    .AppendPathSegment($"{_personPathSegment}/wrong")
+                await _getPersonUrl
+                    .AppendPathSegment("/wrong")
                     .GetAsync();
             }
             catch (FlurlHttpException e)
