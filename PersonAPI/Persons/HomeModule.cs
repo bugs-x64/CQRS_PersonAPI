@@ -1,4 +1,5 @@
 ﻿using Nancy;
+using Persons.Logging;
 
 namespace Persons
 {
@@ -7,14 +8,15 @@ namespace Persons
     /// </summary>
     public sealed class HomeModule : NancyModule
     {
-        public HomeModule()
+        public HomeModule(ILog log)
         {
-            Get("/", _ => GetHello());
-        }
+            Get("/",_=>
+            {
+                const string hello = "Hello";
+                log.Log(LogLevel.Debug, () => hello);
 
-        private static string GetHello()
-        {
-            return "hello";
+                return hello;
+            });
         }
     }
 }

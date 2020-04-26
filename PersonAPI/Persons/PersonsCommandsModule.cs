@@ -1,6 +1,5 @@
 ﻿using System;
 using Nancy;
-using Nancy.ModelBinding;
 using Nancy.Responses.Negotiation;
 using Newtonsoft.Json;
 using Persons.Abstractions;
@@ -59,21 +58,20 @@ namespace Persons
         {
             _log.Log(LogLevel.Debug, () => e.Message);
             return Negotiate
-                .WithStatusCode(HttpStatusCode.UnprocessableEntity)
-                .WithReasonPhrase(e.Message);
+                .WithStatusCode(HttpStatusCode.UnprocessableEntity);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>")]
         private CreatePersonCommand GetCommand()
         {
-                var readToString = Request?.Body?.ReadToString();
-                _log.Log(LogLevel.Debug, () => $"Поступила команда:{Environment.NewLine}{readToString}");
+            var readToString = Request?.Body?.ReadToString();
+            _log.Log(LogLevel.Debug, () => $"Поступила команда:{Environment.NewLine}{readToString}");
 
-                var person = JsonConvert.DeserializeObject<PersonDto>(readToString);
+            var person = JsonConvert.DeserializeObject<PersonDto>(readToString);
 
-                return new CreatePersonCommand(person.Name, person.BirthDay);
+            return new CreatePersonCommand(person.Name, person.BirthDay);
         }
-        
+
         /// <summary>
         /// Ответ при неправильных данных от пользователя.
         /// </summary>
@@ -81,8 +79,7 @@ namespace Persons
         {
             _log.Log(LogLevel.Debug, () => Resources.UnableToCreateCommandFromReceivedData);
             return Negotiate
-                .WithStatusCode(HttpStatusCode.BadRequest)
-                .WithReasonPhrase(Resources.UnableToCreateCommandFromReceivedData);
+                .WithStatusCode(HttpStatusCode.BadRequest);
         }
 
         /// <summary>
@@ -92,8 +89,7 @@ namespace Persons
         {
             _log.Log(LogLevel.Debug, () => e.Message);
             return Negotiate
-                .WithStatusCode(HttpStatusCode.InternalServerError)
-                .WithReasonPhrase(e.Message);
+                .WithStatusCode(HttpStatusCode.InternalServerError);
         }
     }
 }
