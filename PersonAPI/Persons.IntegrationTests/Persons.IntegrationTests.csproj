@@ -62,8 +62,9 @@
     <Compile Include="GetPersonTests.cs" />
     <Compile Include="CreatePersonTests.cs" />
     <Compile Include="GlobalParameters.cs" />
+    <Compile Include="HomePageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FixtureApp.cs" />
+    <Compile Include="AssemblyFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

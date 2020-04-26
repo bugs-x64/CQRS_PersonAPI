@@ -7,10 +7,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Persons.IntegrationTests
 {
     [TestClass]
-    public class FixtureApp
+    public class AssemblyFixture
     {
         private static Process _proc;
-        private static CancellationToken _token;
+        private static readonly string AppName = "Persons";
 
         [AssemblyInitialize]
         public static void StartApplicationAsync(TestContext qwe)
@@ -20,9 +20,9 @@ namespace Persons.IntegrationTests
 
         private static async Task RunAsync()
         {
-            var appName = "Persons";
+            Debug.Flush();
 
-            foreach (var process in Process.GetProcessesByName(appName))
+            foreach (var process in Process.GetProcessesByName(AppName))
             {
                 process.Kill();
             }
@@ -31,7 +31,7 @@ namespace Persons.IntegrationTests
             {
                 StartInfo =
                 {
-                    FileName = appName+".exe",
+                    FileName = AppName+".exe",
                     Arguments = $"-host {GlobalParameters.Host}",
                     CreateNoWindow = false,
                     UseShellExecute = true,
@@ -39,20 +39,16 @@ namespace Persons.IntegrationTests
                 }
             };
             _proc.Start();
-
-            while (!_token.IsCancellationRequested)
-            {
-                await Task.Delay(100);
-            }
-
-            _proc.Kill();
         }
 
 
         [AssemblyCleanup]
         public static void StopApplication()
         {
-            _token = new CancellationToken(true);
+            foreach (var process in Process.GetProcessesByName(AppName))
+            {
+                process.Kill();
+            }
         }
     }
 }

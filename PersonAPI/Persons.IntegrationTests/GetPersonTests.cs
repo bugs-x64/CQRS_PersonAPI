@@ -29,7 +29,6 @@ namespace Persons.IntegrationTests
 
            var result = await _url
                 .WithTimeout(GlobalParameters.RequestTimeoutSeconds)
-                .WithHeader(GlobalParameters.ContentTypeHeader, GlobalParameters.DefaultContentType)
                 .PostJsonAsync(person);
 
            _personPathSegment = result.Headers.Location.ToString();
