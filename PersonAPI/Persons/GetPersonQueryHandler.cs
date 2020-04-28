@@ -18,6 +18,7 @@ namespace Persons
             _personRepository = personRepository;
         }
 
+        /// <inheritdoc />
         public PersonDto Handle(GetPersonQuery query)
         {
             if (query is null) 

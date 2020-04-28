@@ -18,6 +18,7 @@ namespace Persons
             _personRepository = personRepository;
         }
 
+        /// <inheritdoc />
         public Guid Execute(CreatePersonCommand command)
         {
             if(command is null)

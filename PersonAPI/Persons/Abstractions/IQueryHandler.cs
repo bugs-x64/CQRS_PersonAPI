@@ -3,18 +3,18 @@
 namespace Persons.Abstractions
 {
     /// <summary>
-    /// Интерфейс запроса.
+    /// Интерфейс обработчика запроса.
     /// </summary>
-    /// <typeparam name="TQuery">Класс реализующий интерфейс IQuery.</typeparam>
-    /// <typeparam name="TResult">Тип возращаемого результата.</typeparam>
+    /// <typeparam name="TQuery">Запрос.</typeparam>
+    /// <typeparam name="TResult">Результат выполнения запроса.</typeparam>
     public interface IQueryHandler<in TQuery, out TResult>
         where TQuery : IQuery
     {
         /// <summary>
-        /// Обработать запрос.
+        /// Выполняет запрос <typeparamref name="TQuery"/> с результатом <typeparamref name="TResult"/>.
         /// </summary>
-        /// <param name="query">Запрос</param>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <param name="query">Выполняемый запрос.</param>
+        /// <exception cref="ArgumentNullException">Выбрасывается, если пришла пустая команда.</exception>
         TResult Handle(TQuery query);
     }
 }
