@@ -1,3 +1,9 @@
+# About
+
+Example of CQRS pattern REST API.
+
+Used packages: NancyFx, TopShelf, Dapper, Autofac, DI Nancy, Serilog, LibLog
+
 # Run
 
 * app run default on http://127.0.0.1:5000
