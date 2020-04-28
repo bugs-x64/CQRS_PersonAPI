@@ -3,6 +3,9 @@ using System.IO;
 
 namespace Persons.Service.Extensions
 {
+    /// <summary>
+    /// Расширения для <see cref="Stream"/>.
+    /// </summary>
     public static class StreamExtensions
     {
         /// <summary>
@@ -21,6 +24,7 @@ namespace Persons.Service.Extensions
 
             stream.Position = 0;
 
+            //todo по-хорошему надо перегрузку с выбором кодировки.
             return System.Text.Encoding.Default.GetString(data);
         }
     }

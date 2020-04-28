@@ -3,7 +3,7 @@
 namespace Persons.Service.Extensions
 {
     /// <summary>
-    /// Расширения для строк.
+    /// Расширения для <see cref="string"/>.
     /// </summary>
     public static class StringExtensions
     {

@@ -18,8 +18,14 @@ namespace Persons.Service.Commands
             BirthDay = birthDay;
         }
 
+        /// <summary>
+        /// Имя.
+        /// </summary>
         public string Name { get; }
 
+        /// <summary>
+        /// Дата рождения.
+        /// </summary>
         public string BirthDay { get; }
     }
 }

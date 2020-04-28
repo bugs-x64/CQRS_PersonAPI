@@ -52,7 +52,7 @@ namespace Persons.IntegrationTests
                 .AppendPathSegment(_newPersonLocationPath)
                 .GetStringAsync();
 
-            var qwe = JsonConvert.DeserializeObject<PersonDto>(message);
+            JsonConvert.DeserializeObject<PersonDto>(message);
         }
 
         [TestMethod]

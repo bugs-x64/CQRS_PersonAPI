@@ -7,11 +7,11 @@ namespace Persons.Service.Exceptions
     /// <summary>
     /// Ошибка не найденной сущности.
     /// </summary>
-    /// <typeparam name="T">Тип сущности.</typeparam>
+    /// <typeparam name="TEntity">Тип сущности.</typeparam>
     [Serializable]
-    public class EntityNotFoundException<T> : Exception
+    public class EntityNotFoundException<TEntity> : Exception
     {
-        public EntityNotFoundException() : base(Resources.EntityNotFoundException.DefaultFormat(typeof(T)))
+        public EntityNotFoundException() : base(Resources.EntityNotFoundException.DefaultFormat(typeof(TEntity)))
         {
         }
 

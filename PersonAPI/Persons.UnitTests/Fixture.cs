@@ -27,7 +27,7 @@ namespace Persons.UnitTests
  
             builder.RegisterType<CreatePersonCommandHandler>().As<ICommandHandler<CreatePersonCommand, Guid>>();
             builder.RegisterType<GetPersonQueryHandler>().As<IQueryHandler<GetPersonQuery, PersonDto>>();
-            builder.RegisterType<PersonRepository>().As<IPersonRepository>();
+            builder.RegisterType<PersonRepositorySqLite>().As<IPersonRepository>();
             builder.RegisterType<CreatePersonCommandHandler>().As<ICommandHandler<CreatePersonCommand, Guid>>();
             builder.RegisterInstance(LogProvider.GetLogger("Serilog"));
 

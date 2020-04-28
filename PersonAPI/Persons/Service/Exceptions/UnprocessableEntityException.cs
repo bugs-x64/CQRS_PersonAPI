@@ -7,24 +7,23 @@ namespace Persons.Service.Exceptions
     /// <summary>
     /// Ошибка валидации сущности.
     /// </summary>
+    /// <typeparam name="TEntity">Сущность, которую не удалось валидировать.</typeparam>
     [Serializable]
-    public class UnprocessableEntityException<T> : Exception
+    public class UnprocessableEntityException<TEntity> : Exception
     {
         /// <summary>
-        /// Генерирует исключение валидации сущности <typeparamref name="T"/>.
+        /// Генерирует исключение валидации сущности <typeparamref name="TEntity"/>.
         /// </summary>
-        /// <typeparam name="T">Сущность, которую не удалось валидировать.</typeparam>
         public UnprocessableEntityException()
-            : base(Resources.UnprocessableEntityException.DefaultFormat(typeof(T)))
+            : base(Resources.UnprocessableEntityException.DefaultFormat(typeof(TEntity)))
         {
         }
 
         /// <summary>
         /// Генерирует исключение валидации сущности <typeparamref name="T"/> с вложенной ошибкой <paramref name="innerException"/>.
         /// </summary>
-        /// <typeparam name="T">Сущность, которую не удалось валидировать.</typeparam>
         public UnprocessableEntityException(Exception innerException)
-            : base(Resources.UnprocessableEntityException.DefaultFormat(typeof(T)), innerException)
+            : base(Resources.UnprocessableEntityException.DefaultFormat(typeof(TEntity)), innerException)
         {
         }
 

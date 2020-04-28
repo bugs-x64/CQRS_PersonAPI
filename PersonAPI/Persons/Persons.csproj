@@ -137,7 +137,7 @@
     <Compile Include="Abstractions\IQuery.cs" />
     <Compile Include="Abstractions\IQueryHandler.cs" />
     <Compile Include="Abstractions\ICommandHandler.cs" />
-    <Compile Include="Service\Repositories\PersonRepository.cs" />
+    <Compile Include="Service\Repositories\PersonRepositorySqLite.cs" />
     <Compile Include="Service\Models\Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -15,7 +15,7 @@ namespace Persons.UnitTests.Service.Repositories
         [TestInitialize]
         public void Initialize()
         {
-            _instance = new PersonRepository();
+            _instance = new PersonRepositorySqLite();
         }
         
         [TestMethod]

@@ -14,6 +14,12 @@ using Serilog;
 
 namespace Persons.Service
 {
+    /// <summary>
+    /// Стандартный DI Nancy.
+    /// </summary>
+    /// <remarks>
+    ///  Автоматический DI (так называемый Super-Duper-Happy-Path) не сработал. Пришлось регистрировать вручную.
+    /// </remarks>
     public class DefaultBootstrapper : DefaultNancyBootstrapper
     {
         protected override IRootPathProvider RootPathProvider => new DefaultRootPathProvider();
@@ -32,9 +38,10 @@ namespace Persons.Service
 
             container.Register<ICommandHandler<CreatePersonCommand, Guid>, CreatePersonCommandHandler>().AsMultiInstance();
             container.Register<IQueryHandler<GetPersonQuery, PersonDto>, GetPersonQueryHandler>().AsMultiInstance();
-            container.Register<IPersonRepository, PersonRepository>().AsSingleton();
+            container.Register<IPersonRepository, PersonRepositorySqLite>().AsSingleton();
             container.Register(LogProvider.GetLogger("Serilog"));
         }
+
         protected override Func<ITypeCatalog, NancyInternalConfiguration> InternalConfiguration
         {
             get

@@ -25,12 +25,6 @@ namespace Persons.Service
         public void Dispose()
         {
             Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        ~PersonService()
-        {
-            Dispose(true);
         }
 
         public void Start()

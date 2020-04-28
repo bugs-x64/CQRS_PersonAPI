@@ -10,29 +10,46 @@ using Persons.Service.Models;
 
 namespace Persons.Service.Repositories
 {
-
-    public class PersonRepository : IPersonRepository
+    /// <summary>
+    /// Реализация репозитория на SQLite.
+    /// </summary>
+    public class PersonRepositorySqLite : IPersonRepository
     {
+        /// <summary>
+        /// Строковое название репозитория.
+        /// </summary>
         private const string repositoryName = "persons";
+
+        /// <summary>
+        /// Строка подключения.
+        /// </summary>
         private readonly string _connectionString = $"Data Source = {repositoryName}.db3";
 
-        public PersonRepository()
+        public PersonRepositorySqLite()
         {
             using (IDbConnection db = new SQLiteConnection(_connectionString))
             {
                 var checkTableQuery = $"SELECT name FROM sqlite_master WHERE type='table' AND name='{repositoryName}';";
                 var result = db.Query(checkTableQuery);
+
                 if (!result.Any())
-                {
-                    var value = $"CREATE TABLE {repositoryName}(id TEXT PRIMARY KEY, name TEXT, birthday TEXT)";
-                    db.Query(value);
-                    Console.WriteLine(value.DefaultFormat());
-                }
+                    CreateTable(db);
             }
 
             Console.WriteLine(Resources.Repository_connection_established);
         }
 
+        /// <summary>
+        /// Создает таблицу в бд.
+        /// </summary>
+        private static void CreateTable(IDbConnection db)
+        {
+            var value = $"CREATE TABLE {repositoryName}(id TEXT PRIMARY KEY, name TEXT, birthday TEXT)";
+            db.Query(value);
+            Console.WriteLine(value.DefaultFormat());
+        }
+
+        /// <inheritdoc />
         public Person Find(Guid id)
         {
             Person person;
@@ -57,7 +74,8 @@ namespace Persons.Service.Repositories
 
             return person;
         }
-
+        
+        /// <inheritdoc />
         public void Insert(Person item)
         {
             if (item is null)
