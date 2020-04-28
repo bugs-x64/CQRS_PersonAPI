@@ -29,7 +29,7 @@ persons.exe -host "http://127.0.0.1:5000"
 |Status|Header|Comment|
 |-|-|-|
 |Ok (200)| Location : /api/v1/persons/{personId} |Correct data|
-| Bad Request (400) |-|Unable to serialize body to Dto|
+| Bad Request (400) |-|Unable to deserialize body to Dto|
 | Unprocessable Entity (422) |-|Created entity failed validation|
 
 
