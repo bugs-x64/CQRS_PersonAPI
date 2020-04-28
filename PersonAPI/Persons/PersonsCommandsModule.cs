@@ -14,10 +14,24 @@ using Persons.Service.Models;
 
 namespace Persons
 {
+    /// <summary>
+    /// Модуль создания сущности <see cref="Person"/>.
+    /// </summary>
     public sealed class PersonsCommandsModule : NancyModule
     {
+        /// <summary>
+        /// Базовый путь модуля.
+        /// </summary>
         private const string path = RouteConstants.Root + RouteConstants.Version + "/persons";
+
+        /// <summary>
+        /// обработчки команды на создание сущности.
+        /// </summary>
         private readonly ICommandHandler<CreatePersonCommand, Guid> _commandHandler;
+
+        /// <summary>
+        /// Логгер.
+        /// </summary>
         private readonly ILog _log;
 
         public PersonsCommandsModule(ICommandHandler<CreatePersonCommand, Guid> commandHandler, ILog log) : base(path)
@@ -28,6 +42,13 @@ namespace Persons
             Post("/", _ => CreatePerson());
         }
 
+        /// <summary>
+        /// Создает <see cref="Person"/> в репозитории.
+        /// </summary>
+        /// <remarks>
+        /// <c>Request?.Body?.ReadToString();</c>
+        /// достает содержимое тела запроса.
+        /// </remarks>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>")]
         private Negotiator CreatePerson()
         {
@@ -54,6 +75,9 @@ namespace Persons
             }
         }
 
+        /// <summary>
+        /// Ответ для ошибки валидации созданной сущности.
+        /// </summary>
         private Negotiator UnprocessableEntity(UnprocessableEntityException<Person> e)
         {
             _log.Log(LogLevel.Debug, () => e.Message);
@@ -61,6 +85,9 @@ namespace Persons
                 .WithStatusCode(HttpStatusCode.UnprocessableEntity);
         }
 
+        /// <summary>
+        /// Возращает выполняемую команду из тела запроса.
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>")]
         private CreatePersonCommand GetCommand()
         {

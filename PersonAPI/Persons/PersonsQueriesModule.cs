@@ -10,9 +10,19 @@ using Persons.Service.Queries;
 
 namespace Persons
 {
+    /// <summary>
+    /// Модуль выполнения запроса.
+    /// </summary>
     public sealed class PersonsQueriesModule : NancyModule
     {
+        /// <summary>
+        /// Базовый путь модуля.
+        /// </summary>
         private const string path = RouteConstants.Root + RouteConstants.Version + "/persons";
+
+        /// <summary>
+        /// Обработчки запросов на получение <see cref="PersonDto"/>.
+        /// </summary>
         private readonly IQueryHandler<GetPersonQuery, PersonDto> _queryHandler;
 
         public PersonsQueriesModule(IQueryHandler<GetPersonQuery, PersonDto> queryHandler) : base(path)
@@ -22,6 +32,10 @@ namespace Persons
             Get("/{id}", value => GetPerson(value.id));
         }
 
+        /// <summary>
+        /// Выполняет запрос на получение <see cref="PersonDto"/> по <paramref name="id"/>.
+        /// </summary>
+        /// <param name="id">Идентификатор сущности в репозитории.</param>
         private Negotiator GetPerson(string id)
         {
             Guid guid;
@@ -48,6 +62,9 @@ namespace Persons
             }
         }
 
+        /// <summary>
+        /// Ответ при неправильном идентификаторе запрашиваемой сущности.
+        /// </summary>
         private Negotiator NotFound()
         {
             return Negotiate
