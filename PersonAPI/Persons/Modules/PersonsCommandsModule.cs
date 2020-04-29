@@ -3,16 +3,15 @@ using Nancy;
 using Nancy.Responses.Negotiation;
 using Newtonsoft.Json;
 using Persons.Abstractions;
+using Persons.Abstractions.Commands;
 using Persons.Logging;
-using Persons.Service;
-using Persons.Service.Commands;
 using Persons.Service.Constants;
 using Persons.Service.Dto;
 using Persons.Service.Exceptions;
 using Persons.Service.Extensions;
 using Persons.Service.Models;
 
-namespace Persons
+namespace Persons.Modules
 {
     /// <summary>
     /// Модуль создания сущности <see cref="Person"/>.

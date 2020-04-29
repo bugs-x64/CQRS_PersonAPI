@@ -1,10 +1,10 @@
 ﻿using System;
 using Persons.Abstractions;
-using Persons.Service;
+using Persons.Abstractions.Queries;
 using Persons.Service.Dto;
-using Persons.Service.Queries;
+using Persons.Service.Repositories;
 
-namespace Persons
+namespace Persons.Handlers
 {
     /// <summary>
     /// Обработчик запроса на получение <see cref="PersonDto"/> из репозитория.

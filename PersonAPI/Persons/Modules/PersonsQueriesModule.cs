@@ -2,13 +2,13 @@
 using Nancy;
 using Nancy.Responses.Negotiation;
 using Persons.Abstractions;
+using Persons.Abstractions.Queries;
 using Persons.Service.Constants;
 using Persons.Service.Dto;
 using Persons.Service.Exceptions;
 using Persons.Service.Models;
-using Persons.Service.Queries;
 
-namespace Persons
+namespace Persons.Modules
 {
     /// <summary>
     /// Модуль выполнения запроса.

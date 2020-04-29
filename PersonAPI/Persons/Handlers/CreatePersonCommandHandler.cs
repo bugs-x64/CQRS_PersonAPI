@@ -1,10 +1,11 @@
 ﻿using System;
 using Persons.Abstractions;
-using Persons.Service.Commands;
+using Persons.Abstractions.Commands;
 using Persons.Service.Exceptions;
 using Persons.Service.Models;
+using Persons.Service.Repositories;
 
-namespace Persons
+namespace Persons.Handlers
 {
     /// <summary>
     /// Обработчик команды на создание <see cref="Person"/> в репозитории.
@@ -30,8 +31,8 @@ namespace Persons
             {
                 person = new Person
                 {
-                    BirthDay = command?.BirthDay,
-                    Name = command?.Name,
+                    BirthDay = command.BirthDay,
+                    Name = command.Name,
                     Id = newPersonGuid.ToString()
                 };
             }

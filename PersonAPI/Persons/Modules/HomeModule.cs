@@ -1,7 +1,7 @@
 ﻿using Nancy;
 using Persons.Logging;
 
-namespace Persons
+namespace Persons.Modules
 {
     /// <summary>
     /// Модуль главной страницы.
