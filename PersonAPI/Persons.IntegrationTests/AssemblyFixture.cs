@@ -9,25 +9,17 @@ namespace Persons.IntegrationTests
     [TestClass]
     public class AssemblyFixture
     {
-        private static Process _proc;
         private static readonly string AppName = "Persons";
 
         [AssemblyInitialize]
         public static void StartApplicationAsync(TestContext qwe)
         {
-            _ = RunAsync();
-        }
-
-        private static async Task RunAsync()
-        {
-            Debug.Flush();
-
             foreach (var process in Process.GetProcessesByName(AppName))
             {
                 process.Kill();
             }
 
-            _proc = new Process
+            var proc = new Process
             {
                 StartInfo =
                 {
@@ -38,7 +30,8 @@ namespace Persons.IntegrationTests
                     WorkingDirectory = Environment.CurrentDirectory + "\\..\\..\\..\\persons\\bin\\debug"
                 }
             };
-            _proc.Start();
+
+            proc.Start();
         }
 
 

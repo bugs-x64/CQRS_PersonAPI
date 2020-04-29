@@ -71,6 +71,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Persons.Service\Persons.Service.csproj">
+      <Project>{499928d1-403d-40c1-9796-5eccd883a2e7}</Project>
+      <Name>Persons.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Persons\Persons.csproj">
       <Project>{be269927-6ffb-40ff-9a81-0486e1316a39}</Project>
       <Name>Persons</Name>
