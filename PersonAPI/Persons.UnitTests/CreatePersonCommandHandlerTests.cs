@@ -2,7 +2,7 @@
 using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Persons.Abstractions;
-using Persons.Service.Commands;
+using Persons.Abstractions.Commands;
 using Persons.Service.Exceptions;
 using Persons.Service.Models;
 

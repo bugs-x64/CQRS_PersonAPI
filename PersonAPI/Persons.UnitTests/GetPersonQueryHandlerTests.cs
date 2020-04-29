@@ -2,9 +2,10 @@
 using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Persons.Abstractions;
+using Persons.Abstractions.Queries;
 using Persons.Service.Dto;
 using Persons.Service.Models;
-using Persons.Service.Queries;
+using Persons.Service.Repositories;
 
 namespace Persons.UnitTests
 {

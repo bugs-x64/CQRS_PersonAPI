@@ -2,11 +2,12 @@
 using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Persons.Abstractions;
+using Persons.Abstractions.Commands;
+using Persons.Abstractions.Queries;
+using Persons.Handlers;
 using Persons.Logging;
 using Persons.Logging.LogProviders;
-using Persons.Service.Commands;
 using Persons.Service.Dto;
-using Persons.Service.Queries;
 using Persons.Service.Repositories;
 using Serilog;
 
