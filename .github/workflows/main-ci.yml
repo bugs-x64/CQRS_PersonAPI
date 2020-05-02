@@ -18,18 +18,5 @@ jobs:
        uses: microsoft/setup-msbuild@v1
 
      - name: build application
-       shell: pwsh
-       run: .github\workflows\scripts\build.ps1
-       
-  testing:
-    runs-on: windows-latest
-    
-    steps:
-     - uses: actions/checkout@v2
-              
-     - name: setup-msbuild       
-       uses: microsoft/setup-msbuild@v1
-
-     - name: build application
-       shell: pwsh
-       run: .github\workflows\scripts\build.ps1
+       shell: powershell
+       run: .github/workflows/scripts/build.ps1
