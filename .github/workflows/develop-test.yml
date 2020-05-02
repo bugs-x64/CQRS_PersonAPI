@@ -19,7 +19,7 @@ jobs:
 
     strategy:
       matrix:
-        configuration: [Debug, Release]
+        configuration: [Release]
     runs-on: windows-latest
 
     steps:
@@ -28,6 +28,9 @@ jobs:
               
     - name: Setup msbuild       
       uses: microsoft/setup-msbuild@v1
+        
+    - name: Setup VSTest.console.exe
+      uses: darenm/Setup-VSTest@v1
     
     - name: Setup nuget
       uses: NuGet/setup-nuget@v1.0.2
@@ -39,15 +42,9 @@ jobs:
       run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="LIBLOG_PUBLIC"
       env:
         Configuration: ${{ matrix.configuration }}
-        
-    - name: Setup VSTest.console.exe
-      uses: darenm/Setup-VSTest@v1
 
     - name: Test application
-      run: Vstest.console.exe |
-        $env:Solution_Dir\$env:Persons_Abstractions_UnitTests_Path\$env:Configuration\$env:Persons_Abstractions_UnitTests_Path.dll |
-        $env:Solution_Dir\$env:Persons_IntegrationTests_Path\$env:Configuration\$env:Persons_IntegrationTests_Path.dll |
-        $env:Solution_Dir\$env:Persons_Service_UnitTests_Path\$env:Configuration\$env:Persons_Service_UnitTests_Path.dll |
-        $env:Solution_Dir\$env:Persons_UnitTests_Path\$env:Configuration\$env:Persons_UnitTests_Path.dll
+      run: Vstest.console.exe $env:Solution_Dir\$env:Persons_Abstractions_UnitTests_Path\$env:Configuration\$env:Persons_Abstractions_UnitTests_Path.dll 
+      
       env:
         Configuration: ${{ matrix.configuration }}
