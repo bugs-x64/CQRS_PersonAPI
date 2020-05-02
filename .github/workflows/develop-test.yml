@@ -8,7 +8,8 @@ on:
     branches: [ develop ]
 
 jobs:
-  env:  
+  build:
+    env:  
       Solution_Dir: PersonAPI
       Solution_Name: PersonAPI.sln   
       Persons_Abstractions_UnitTests_Path: Persons.Abstractions.UnitTests
@@ -16,7 +17,6 @@ jobs:
       Persons_Service_UnitTests_Path: Persons.Service.UnitTests
       Persons_UnitTests_Path: Persons.UnitTests
 
-  build:
     strategy:
       matrix:
         configuration: [Debug, Release]
@@ -42,9 +42,9 @@ jobs:
         
     - name: Test application
       run: MsTest |
-      /testcontainer:$env:Solution_Dir\$env:Persons_Abstractions_UnitTests_Path\$env:Configuration\$env:Persons_Abstractions_UnitTests_Path.dll |
-      /testcontainer:$env:Solution_Dir\$env:Persons_IntegrationTests_Path\$env:Configuration\$env:Persons_IntegrationTests_Path.dll |
-      /testcontainer:$env:Solution_Dir\$env:Persons_Service_UnitTests_Path\$env:Configuration\$env:Persons_Service_UnitTests_Path.dll |
-      /testcontainer:$env:Solution_Dir\$env:Persons_UnitTests_Path\$env:Configuration\$env:Persons_UnitTests_Path.dll |
+       /testcontainer:$env:Solution_Dir\$env:Persons_Abstractions_UnitTests_Path\$env:Configuration\$env:Persons_Abstractions_UnitTests_Path.dll |
+       /testcontainer:$env:Solution_Dir\$env:Persons_IntegrationTests_Path\$env:Configuration\$env:Persons_IntegrationTests_Path.dll |
+       /testcontainer:$env:Solution_Dir\$env:Persons_Service_UnitTests_Path\$env:Configuration\$env:Persons_Service_UnitTests_Path.dll |
+       /testcontainer:$env:Solution_Dir\$env:Persons_UnitTests_Path\$env:Configuration\$env:Persons_UnitTests_Path.dll |
       env:
         Configuration: ${{ matrix.configuration }}
