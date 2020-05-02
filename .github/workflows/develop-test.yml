@@ -40,4 +40,4 @@ jobs:
       run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="LIBLOG_PUBLIC"
 
     - name: Test application
-      run: Vstest.console.exe $env:Solution_Dir\$env:Persons_Abstractions_UnitTests_Path\$env:Configuration\$env:Persons_Abstractions_UnitTests_Path.dll
+      run: Vstest.console.exe $env:Solution_Dir\$env:Persons_Abstractions_UnitTests_Path\bin\$env:Configuration\$env:Persons_Abstractions_UnitTests_Path.dll
