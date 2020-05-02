@@ -1,4 +1,4 @@
-name: build Persons
+name: Testing
 
 on:
   push:
