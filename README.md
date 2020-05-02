@@ -1,4 +1,7 @@
 # About
+![Build](https://github.com/bugs-x64/CQRS_PersonAPI/workflows/Build%20-%20develop/badge.svg) ![Testing](https://github.com/bugs-x64/CQRS_PersonAPI/workflows/Testing%20-%20develop/badge.svg?branch=develop)
+
+
 
 Example of CQRS pattern REST API.
 
