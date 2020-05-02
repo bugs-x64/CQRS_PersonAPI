@@ -2,7 +2,7 @@ name: build Persons
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, develop ]
   pull_request:
     branches: [ master, develop ]
 
@@ -11,7 +11,7 @@ jobs:
     runs-on: windows-lateast
     
     steps:
-     - uses: actions/checkout@v1
+     - uses: actions/checkout@v2
               
      - name: setup-msbuild       
        uses: microsoft/setup-msbuild@v1
