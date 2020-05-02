@@ -2,7 +2,7 @@
 using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Persons.Abstractions;
-using Persons.Service.Commands;
+using Persons.Abstractions.Commands;
 using Persons.Service.Exceptions;
 using Persons.Service.Models;
 
@@ -21,7 +21,7 @@ namespace Persons.UnitTests
         }
         
         [TestMethod]
-        public void Handle_WhenCorrectCommand_ReturnNotEmptyGuid()
+        public void Handle_CorrectCommand_ReturnNotEmptyGuid()
         {
             var command = new CreatePersonCommand("john","1977-01-01");
 
@@ -32,14 +32,14 @@ namespace Persons.UnitTests
         
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void Handle_WhenNullQuery_ThrowArgumentNullException()
+        public void Handle_NullQuery_ThrowArgumentNullException()
         {
             _handler.Execute(null);
         }
         
         [TestMethod]
         [ExpectedException(typeof(UnprocessableEntityException<Person>))]
-        public void Handle_WhenIncorrectCommand_ThrowUnprocessableEntityException()
+        public void Handle_IncorrectCommand_ThrowUnprocessableEntityException()
         {
             var command = new CreatePersonCommand("kk","wrong");
 

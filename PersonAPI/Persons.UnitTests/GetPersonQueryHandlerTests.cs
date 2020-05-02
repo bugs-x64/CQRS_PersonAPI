@@ -2,9 +2,10 @@
 using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Persons.Abstractions;
+using Persons.Abstractions.Queries;
 using Persons.Service.Dto;
 using Persons.Service.Models;
-using Persons.Service.Queries;
+using Persons.Service.Repositories;
 
 namespace Persons.UnitTests
 {
@@ -26,7 +27,7 @@ namespace Persons.UnitTests
         }
         
         [TestMethod]
-        public void Handle_WhenCorrectQuery_ReturnNotNullPersonDto()
+        public void Handle_CorrectQuery_ReturnNotNullPersonDto()
         {
             var query = new GetPersonQuery(_personId);
 
@@ -36,7 +37,7 @@ namespace Persons.UnitTests
         }
 
         [TestMethod]
-        public void Handle_WhenCorrectQuery_ReturnPersonIdEqualsRequested()
+        public void Handle_CorrectQuery_ReturnPersonIdEqualsRequested()
         {
             var query = new GetPersonQuery(_personId);
 
@@ -47,7 +48,7 @@ namespace Persons.UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void Handle_WhenNullQuery_ThrowArgumentNullException()
+        public void Handle_NullQuery_ThrowArgumentNullException()
         {
             _handler.Handle(null);
         }

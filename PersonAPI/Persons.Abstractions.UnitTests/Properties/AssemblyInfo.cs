@@ -1,18 +1,18 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Persons.IntegrationTests")]
+[assembly: AssemblyTitle("Persons.Abstractions.UnitTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Persons.IntegrationTests")]
+[assembly: AssemblyProduct("Persons.Abstractions.UnitTests")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
 
-[assembly: Guid("bc342734-46a8-4470-86e5-7fac692054c9")]
+[assembly: Guid("ddddd580-8b24-48ae-9a33-1374b4ee1fcc")]
 
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]

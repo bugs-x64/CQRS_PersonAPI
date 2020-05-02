@@ -1,5 +1,4 @@
 ﻿using System;
-using Persons.Service;
 using Topshelf;
 
 namespace Persons
@@ -19,9 +18,9 @@ namespace Persons
                 });
                 x.ApplyCommandLine();
 
-                x.Service<PersonService>(s =>
+                x.Service<StartupService>(s =>
                 {
-                    s.ConstructUsing(() => new PersonService(_host??"http://127.0.0.1:5000"));
+                    s.ConstructUsing(() => new StartupService(_host??"http://127.0.0.1:5000"));
                     s.WhenStarted(svc => svc.Start()); 
                     s.WhenStopped(svc => svc.Stop()); 
                 }); 
