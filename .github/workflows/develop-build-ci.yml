@@ -21,10 +21,16 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
               
-    - name: setup-msbuild       
+    - name: Setup msbuild       
       uses: microsoft/setup-msbuild@v1
+    
+    - name: Setup nuget
+      uses: NuGet/setup-nuget@v1.0.2
+    
+    - name: Restore NuGet Packages
+      run: nuget restore $env:Solution_Name
 
     - name: build application
-      run: msbuild $env:Solution_Name -t:clean;build -property:Configuration=$env:Configuration
+      run: msbuild $env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="LIBLOG_PUBLIC"
       env:
         Configuration: ${{ matrix.configuration }}
