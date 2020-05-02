@@ -15,7 +15,7 @@ jobs:
     runs-on: windows-latest
     
     env:
-      Solution_Name: PersonAPI.sln
+      Solution_Name: PersonAPI/PersonAPI.sln
     
     steps:
     - name: Checkout
