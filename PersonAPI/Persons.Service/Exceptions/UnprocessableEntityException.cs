@@ -20,7 +20,7 @@ namespace Persons.Service.Exceptions
         }
 
         /// <summary>
-        /// Генерирует исключение валидации сущности <typeparamref name="T"/> с вложенной ошибкой <paramref name="innerException"/>.
+        /// Генерирует исключение валидации сущности <typeparamref name="TEntity"/> с вложенной ошибкой <paramref name="innerException"/>.
         /// </summary>
         public UnprocessableEntityException(Exception innerException)
             : base(Resources.UnprocessableEntityException.DefaultFormat(typeof(TEntity)), innerException)

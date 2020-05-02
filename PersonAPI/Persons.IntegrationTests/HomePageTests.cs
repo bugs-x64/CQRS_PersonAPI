@@ -1,9 +1,7 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
 using Flurl.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Persons.Service.Dto;
 
 namespace Persons.IntegrationTests
 {

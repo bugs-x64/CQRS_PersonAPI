@@ -3,7 +3,6 @@ using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 using Dapper;
-using Persons.Abstractions;
 using Persons.Service.Exceptions;
 using Persons.Service.Extensions;
 using Persons.Service.Models;

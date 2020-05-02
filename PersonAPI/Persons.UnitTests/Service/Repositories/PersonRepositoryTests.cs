@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Persons.Abstractions;
 using Persons.Service.Exceptions;
 using Persons.Service.Models;
 using Persons.Service.Repositories;

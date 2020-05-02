@@ -12,8 +12,8 @@ namespace Persons.UnitTests.Service.Models
         {
             var name = "Test";
             var birthDay = "1977-07-07";
-            
-            var result = new Person {Name = name, BirthDay = birthDay};
+
+            var _ = new Person {Name = name, BirthDay = birthDay};
         }
 
         [TestMethod]
@@ -22,7 +22,7 @@ namespace Persons.UnitTests.Service.Models
         {
             var birthDay = "wrong";
 
-            var result = new Person {BirthDay = birthDay};
+            var _ = new Person {BirthDay = birthDay};
         }
         
         [TestMethod]

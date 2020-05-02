@@ -8,7 +8,6 @@ using Persons.Abstractions.Commands;
 using Persons.Abstractions.Queries;
 using Persons.Handlers;
 using Persons.Logging;
-using Persons.Logging.LogProviders;
 using Persons.Service.Dto;
 using Persons.Service.Repositories;
 using Serilog;
@@ -30,17 +29,15 @@ namespace Persons
             if (container == null)
                 return;
 
-            Log.Logger=new LoggerConfiguration()
+            Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.Console()
                 .CreateLogger();
 
-            LogProvider.SetCurrentLogProvider(new SerilogLogProvider()); 
-
             container.Register<ICommandHandler<CreatePersonCommand, Guid>, CreatePersonCommandHandler>().AsMultiInstance();
             container.Register<IQueryHandler<GetPersonQuery, PersonDto>, GetPersonQueryHandler>().AsMultiInstance();
             container.Register<IPersonRepository, PersonRepositorySqLite>().AsSingleton();
-            container.Register(LogProvider.GetLogger("Serilog"));
+            container.Register(LogProvider.GetCurrentClassLogger());
         }
 
         protected override Func<ITypeCatalog, NancyInternalConfiguration> InternalConfiguration

@@ -1,6 +1,5 @@
 ﻿using System;
 using Autofac;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Persons.Abstractions;
 using Persons.Abstractions.Commands;
 using Persons.Abstractions.Queries;
@@ -21,16 +20,14 @@ namespace Persons.UnitTests
                 .MinimumLevel.Debug()
                 .WriteTo.Console()
                 .CreateLogger();
-
-            LogProvider.SetCurrentLogProvider(new SerilogLogProvider()); 
-
+            
             var builder = new ContainerBuilder();
  
             builder.RegisterType<CreatePersonCommandHandler>().As<ICommandHandler<CreatePersonCommand, Guid>>();
             builder.RegisterType<GetPersonQueryHandler>().As<IQueryHandler<GetPersonQuery, PersonDto>>();
             builder.RegisterType<PersonRepositorySqLite>().As<IPersonRepository>();
             builder.RegisterType<CreatePersonCommandHandler>().As<ICommandHandler<CreatePersonCommand, Guid>>();
-            builder.RegisterInstance(LogProvider.GetLogger("Serilog"));
+            builder.RegisterInstance(LogProvider.GetCurrentClassLogger());
 
            return  builder.Build();
         }
