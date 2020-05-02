@@ -33,7 +33,7 @@ jobs:
       uses: NuGet/setup-nuget@v1.0.2
     
     - name: Restore NuGet Packages
-      run: nuget restore $env:Solution_Name
+      run: nuget restore $env:Solution_Dir\$env:Solution_Name
 
     - name: Build application
       run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="LIBLOG_PUBLIC"
