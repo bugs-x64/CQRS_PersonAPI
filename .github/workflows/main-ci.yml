@@ -18,5 +18,6 @@ jobs:
        uses: microsoft/setup-msbuild@v1
 
      - name: build application
-       shell: powershell
-       run: .github/workflows/scripts/build.ps1
+       run: |
+            msbuild PersonAPI/PersonAPI.sln -t:Clean;build -property:Configuration=Release
+            exit
