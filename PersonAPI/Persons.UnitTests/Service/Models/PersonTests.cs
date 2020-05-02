@@ -8,7 +8,7 @@ namespace Persons.UnitTests.Service.Models
     public class PersonTests
     {
         [TestMethod]
-        public void Initialization_WhenCorrectNameAndDate_CreateWithoutException()
+        public void Initialization_CorrectNameAndDate_CreateWithoutException()
         {
             var name = "Test";
             var birthDay = "1977-07-07";
@@ -18,7 +18,7 @@ namespace Persons.UnitTests.Service.Models
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void Initialization_WhenIncorrectDate_ThrowFormatException()
+        public void Initialization_IncorrectDate_ThrowFormatException()
         {
             var birthDay = "wrong";
 
@@ -26,7 +26,7 @@ namespace Persons.UnitTests.Service.Models
         }
         
         [TestMethod]
-        public void Initialization_WhenCorrectDate_InitialValueEqualsAssigned()
+        public void Initialization_CorrectDate_InitialValueEqualsAssigned()
         {
             var birthDay = "1977-07-07";
 
@@ -36,7 +36,7 @@ namespace Persons.UnitTests.Service.Models
         }
 
         [TestMethod]
-        public void Initialization_WhenCorrectName_InitialValueEqualsAssigned()
+        public void Initialization_CorrectName_InitialValueEqualsAssigned()
         {
             var name = "name";
 
@@ -46,7 +46,7 @@ namespace Persons.UnitTests.Service.Models
         }
         
         [TestMethod]
-        public void Initialization_WhenAgeMore120_AgeIsNull()
+        public void Initialization_AgeMore120_AgeIsNull()
         {
             var birthDay = "1799-01-01";
 
@@ -56,7 +56,7 @@ namespace Persons.UnitTests.Service.Models
         }
 
         [TestMethod]
-        public void Initialization_WhenAgeLessOrEqual120_AgeNotNull()
+        public void Initialization_AgeLessOrEqual120_AgeNotNull()
         {
             var birthDay = "1977-07-07";
 

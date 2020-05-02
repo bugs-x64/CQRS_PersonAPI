@@ -5,7 +5,6 @@ using Persons.Abstractions.Commands;
 using Persons.Abstractions.Queries;
 using Persons.Handlers;
 using Persons.Logging;
-using Persons.Logging.LogProviders;
 using Persons.Service.Dto;
 using Persons.Service.Repositories;
 using Serilog;
