@@ -16,10 +16,8 @@ jobs:
       Persons_IntegrationTests_Path: Persons.IntegrationTests
       Persons_Service_UnitTests_Path: Persons.Service.UnitTests
       Persons_UnitTests_Path: Persons.UnitTests
+      Configuration: Release
 
-    strategy:
-      matrix:
-        configuration: [Release]
     runs-on: windows-latest
 
     steps:
@@ -40,11 +38,6 @@ jobs:
 
     - name: Build application
       run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="LIBLOG_PUBLIC"
-      env:
-        Configuration: ${{ matrix.configuration }}
 
     - name: Test application
-      run: Vstest.console.exe $env:Solution_Dir\$env:Persons_Abstractions_UnitTests_Path\$env:Configuration\$env:Persons_Abstractions_UnitTests_Path.dll 
-      
-      env:
-        Configuration: ${{ matrix.configuration }}
+      run: Vstest.console.exe $env:Solution_Dir\$env:Persons_Abstractions_UnitTests_Path\$env:Configuration\$env:Persons_Abstractions_UnitTests_Path.dll
