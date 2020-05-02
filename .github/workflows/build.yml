@@ -3,7 +3,7 @@ name: build
 on:
   push:
     branches: [ master, develop ]
-    
+
   pull_request:
     branches: [ master, develop ]
 
@@ -19,6 +19,4 @@ jobs:
 
      - name: build application
        shell: pwsh
-       run: .github\workflows\Build\build.ps1
-
-
+       run: .github\workflows\scripts\build.ps1
