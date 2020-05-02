@@ -13,9 +13,9 @@ jobs:
       Solution_Dir: PersonAPI
       Solution_Name: PersonAPI.sln   
       Persons_Abstractions_UnitTests_Path: Persons.Abstractions.UnitTests
-      Persons_IntegrationTests_Path: Persons.IntegrationTests
       Persons_Service_UnitTests_Path: Persons.Service.UnitTests
       Persons_UnitTests_Path: Persons.UnitTests
+      Persons_IntegrationTests_Path: Persons.IntegrationTests
       Configuration: Release
 
     runs-on: windows-latest
@@ -40,4 +40,7 @@ jobs:
       run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="LIBLOG_PUBLIC"
 
     - name: Test application
-      run: Vstest.console.exe $env:Solution_Dir\$env:Persons_Abstractions_UnitTests_Path\bin\$env:Configuration\$env:Persons_Abstractions_UnitTests_Path.dll
+      run: Vstest.console.exe $env:Solution_Dir\$env:Persons_Abstractions_UnitTests_Path\bin\$env:Configuration\$env:Persons_Abstractions_UnitTests_Path.dll |
+        $env:Solution_Dir\$env:Persons_Service_UnitTests_Path\bin\$env:Configuration\$env:Persons_Service_UnitTests_Path.dll |
+        $env:Solution_Dir\$env:Persons_UnitTests_Path\bin\$env:Configuration\$env:Persons_UnitTests_Path.dll |
+        $env:Solution_Dir\$env:Persons_IntegrationTests_Path\bin\$env:Configuration\$env:Persons_IntegrationTests_Path.dll
