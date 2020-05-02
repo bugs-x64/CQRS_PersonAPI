@@ -1,0 +1,24 @@
+name: build
+
+on:
+  push:
+    branches: [ master, develop ]
+    
+  pull_request:
+    branches: [ master, develop ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+     - uses: actions/checkout@v2
+              
+     - name: setup-msbuild       
+       uses: microsoft/setup-msbuild@v1
+
+     - name: build application
+       shell: pwsh
+       run: .github\workflows\Build\build.ps1
+
+
