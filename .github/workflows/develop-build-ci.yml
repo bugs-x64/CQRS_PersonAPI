@@ -1,0 +1,30 @@
+name: Main
+
+on:
+  push:
+    branches: [ develop ]
+
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+    runs-on: windows-latest
+    
+    env:
+      Solution_Name: PersonAPI/PersonAPI.sln
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+              
+    - name: setup-msbuild       
+      uses: microsoft/setup-msbuild@v1
+
+    - name: build application
+      run: msbuild $env:Solution_Name -t:clean;build -property:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
