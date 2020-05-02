@@ -25,6 +25,6 @@ jobs:
       uses: microsoft/setup-msbuild@v1
 
     - name: build application
-      run: msbuild $env:Solution_Name -t:build -property:Configuration=$env:Configuration
+      run: msbuild $env:Solution_Name -t:build -property:Configuration=$env:Configuration -m
       env:
         Configuration: ${{ matrix.configuration }}
