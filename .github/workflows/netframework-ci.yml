@@ -1,0 +1,29 @@
+name: build Persons
+
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+    branches:
+    - master
+    - develop
+
+jobs:
+  build:
+    runs-on: windows-lateast
+    
+    steps:
+     - uses: actions/checkout@v1
+              
+     - name: setup-msbuild       
+       uses: microsoft/setup-msbuild@v1
+     - name: npm install
+       run: |
+        npm install
+        npm run build
+        npm run pack
+     - name: build application
+       run: msbuild PersonAPI/PersonAPI.sln -t:Clean;build -property:Configuration=Release
+
+
