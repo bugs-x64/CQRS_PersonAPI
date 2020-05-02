@@ -15,11 +15,6 @@ jobs:
               
      - name: setup-msbuild       
        uses: microsoft/setup-msbuild@v1
-     - name: npm install
-       run: |
-        npm install
-        npm run build
-        npm run pack
      - name: build application
        run: msbuild PersonAPI/PersonAPI.sln -t:Clean;build -property:Configuration=Release
 
