@@ -18,13 +18,5 @@ namespace Persons.Abstractions.UnitTests.Queries
         {
             var _ = new GetPersonQuery(Guid.Empty);
         }
-
-
-        [TestMethod]
-        public void Initialization_EmptyGuid_CreateWithoutException1()
-        {
-            throw new Exception();
-            var _ = new GetPersonQuery(Guid.Empty);
-        }
     }
 }
