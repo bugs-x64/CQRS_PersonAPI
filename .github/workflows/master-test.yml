@@ -8,35 +8,46 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
-    strategy:
-      matrix:
-        configuration: [Release]
+  build_and_test:
+    env:  
+      Solution_Dir: PersonAPI
+      Solution_Name: PersonAPI.sln   
+      Persons_Abstractions_UnitTests_Path: Persons.Abstractions.UnitTests
+      Persons_Service_UnitTests_Path: Persons.Service.UnitTests
+      Persons_UnitTests_Path: Persons.UnitTests
+      Persons_IntegrationTests_Path: Persons.IntegrationTests
+      Persons_Path: Persons
+      Configuration: Release
+
     runs-on: windows-latest
-    
-    env:
-      Solution_Name: PersonAPI/PersonAPI.sln
-    
+
     steps:
     - name: Checkout
       uses: actions/checkout@v2
               
     - name: Setup msbuild       
       uses: microsoft/setup-msbuild@v1
+        
+    - name: Setup VSTest.console.exe
+      uses: darenm/Setup-VSTest@v1
     
     - name: Setup nuget
       uses: NuGet/setup-nuget@v1.0.2
     
     - name: Restore NuGet Packages
-      run: nuget restore $env:Solution_Name
+      run: nuget restore $env:Solution_Dir\$env:Solution_Name
 
-    - name: build application
-      run: msbuild $env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="LIBLOG_PUBLIC"
-      env:
-        Configuration: ${{ matrix.configuration }}
+    - name: Build application
+      run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="LIBLOG_PUBLIC"
+
+    - name: Test application
+      run: Vstest.console.exe $env:Solution_Dir\$env:Persons_Abstractions_UnitTests_Path\bin\$env:Configuration\$env:Persons_Abstractions_UnitTests_Path.dll |
+        $env:Solution_Dir\$env:Persons_Service_UnitTests_Path\bin\$env:Configuration\$env:Persons_Service_UnitTests_Path.dll |
+        $env:Solution_Dir\$env:Persons_UnitTests_Path\bin\$env:Configuration\$env:Persons_UnitTests_Path.dll |
+        $env:Solution_Dir\$env:Persons_IntegrationTests_Path\bin\$env:Configuration\$env:Persons_IntegrationTests_Path.dll
 
     - name: Create artifact   
     - uses: actions/upload-artifact@v2
       with:
         name: application_files
-        path: path/to/artifact/world.txt
+        path: $env:Solution_Dir\$env:Persons_Path\bin\$env:Configuration
