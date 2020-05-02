@@ -2,12 +2,9 @@ name: build Persons
 
 on:
   push:
-    branches:
-    - master
+    branches: [ master ]
   pull_request:
-    branches:
-    - master
-    - develop
+    branches: [ master, develop ]
 
 jobs:
   build:
