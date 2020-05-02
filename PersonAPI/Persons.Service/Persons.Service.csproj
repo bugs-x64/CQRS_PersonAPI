@@ -68,7 +68,7 @@
     <Compile Include="Models\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IPersonRepository.cs" />
-    <Compile Include="Repositories\PersonRepositorySQLite.cs" />
+    <Compile Include="Repositories\PersonRepositorySqLite.cs" />
     <Compile Include="Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>

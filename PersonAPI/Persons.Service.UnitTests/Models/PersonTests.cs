@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Persons.Service.Models;
 
-namespace Persons.UnitTests.Service.Models
+namespace Persons.Service.UnitTests.Models
 {
     [TestClass]
     public class PersonTests

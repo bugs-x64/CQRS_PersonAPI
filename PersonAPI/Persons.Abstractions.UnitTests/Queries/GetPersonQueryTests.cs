@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Persons.Abstractions.Commands;
 using Persons.Abstractions.Queries;
 
 namespace Persons.Abstractions.UnitTests.Queries

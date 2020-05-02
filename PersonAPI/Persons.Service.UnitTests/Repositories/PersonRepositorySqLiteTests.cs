@@ -4,10 +4,10 @@ using Persons.Service.Exceptions;
 using Persons.Service.Models;
 using Persons.Service.Repositories;
 
-namespace Persons.UnitTests.Service.Repositories
+namespace Persons.Service.UnitTests.Repositories
 {
     [TestClass]
-    public class PersonRepositoryTests
+    public class PersonRepositorySqLiteTests
     {
         private IPersonRepository _instance;
 
@@ -18,7 +18,7 @@ namespace Persons.UnitTests.Service.Repositories
         }
         
         [TestMethod]
-        public void Insert_WhenCorrectPersonData_RunWithoutException()
+        public void Insert_CorrectPersonData_RunWithoutException()
         {
             var person = new Person
             {
@@ -32,23 +32,23 @@ namespace Persons.UnitTests.Service.Repositories
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void Insert_WhenNullData_ThrowArgumentNullException()
+        public void Insert_NullData_ThrowArgumentNullException()
         {
             _instance.Insert(null);
         }
         
         [TestMethod]
         [ExpectedException(typeof(FormatException))]
-        public void Insert_WhenIncorrectPersonId_ThrowFormatException()
+        public void Insert_EmptyPersonId_ThrowFormatException()
         {
-            var person = new Person {Id = ""};
+            var person = new Person {Id = string.Empty};
 
             _instance.Insert(person);
         }
 
         
         [TestMethod]
-        public void Find_WhenCorrectPersonId_ReturnPersonIdEqualsInitial()
+        public void Find_CorrectPersonId_ReturnPersonIdEqualsInitial()
         {
             var personId = Guid.NewGuid();
             var person = new Person
@@ -67,7 +67,7 @@ namespace Persons.UnitTests.Service.Repositories
         
         [TestMethod]
         [ExpectedException(typeof(EntityNotFoundException<Person>))]
-        public void Find_WhenNonexistentPersonId_ThrowEntityNotFoundException()
+        public void Find_NonexistentPersonId_ThrowEntityNotFoundException()
         {
             var person = Guid.NewGuid();
 
