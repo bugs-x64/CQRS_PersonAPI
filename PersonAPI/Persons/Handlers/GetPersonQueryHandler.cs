@@ -28,10 +28,10 @@ namespace Persons.Handlers
 
             return new PersonDto
             {
-                Id = result.Id,
+                Id = result.Id.ToString(),
                 Name = result.Name,
                 Age = result.Age,
-                BirthDay = result.BirthDay
+                BirthDay = result.GetFormattedBirthDay()
             };
         }
     }

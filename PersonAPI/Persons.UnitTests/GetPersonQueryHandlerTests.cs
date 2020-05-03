@@ -23,7 +23,7 @@ namespace Persons.UnitTests
             _handler = container.Resolve<IQueryHandler<GetPersonQuery, PersonDto>>();
             
             _personId = Guid.NewGuid();
-            repository.Insert(new Person { Id = _personId.ToString() });
+            repository.Insert(Person.Create(_personId,"namre",DateTime.Today.AddYears(-1)));
         }
         
         [TestMethod]
