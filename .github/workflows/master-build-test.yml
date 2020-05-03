@@ -40,7 +40,9 @@ jobs:
   
   testing:
     needs: build
-        
+    
+    runs-on: windows-latest
+    steps:
     - name: Setup VSTest.console.exe
       uses: darenm/Setup-VSTest@v1
 
@@ -50,6 +52,8 @@ jobs:
   create_artifacts:
     needs: testing
     
+    runs-on: windows-latest
+    steps:
     - name: Create artifact   
       uses: actions/upload-artifact@v2
       with:
