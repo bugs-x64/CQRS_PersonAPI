@@ -38,7 +38,6 @@ jobs:
       run: nuget restore $env:Solution_Dir\$env:Solution_Name
 
     - name: Build application
-      id: builded
       run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="LIBLOG_PUBLIC"
       env:
         Configuration: ${{ matrix.configuration }}
@@ -66,8 +65,9 @@ jobs:
       run: nuget restore $env:Solution_Dir\$env:Solution_Name
 
     - name: Build application
-      id: builded
       run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="LIBLOG_PUBLIC"
+      env:
+        Configuration: ${{ matrix.configuration }}
 
     - name: Setup VSTest.console.exe
       uses: darenm/Setup-VSTest@v1
