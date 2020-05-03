@@ -37,7 +37,7 @@ jobs:
       run: nuget restore $env:Solution_Dir\$env:Solution_Name
 
     - name: Build application
-      run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -m -p:Configuration=$env:Configuration;DefineConstants="DEBUG;TRACE;LIBLOG_PUBLIC";Optimize=false;DebugSymbols=true;DebugType="full"
+      run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration;DefineConstants="DEBUG;TRACE;LIBLOG_PUBLIC";Optimize=false;DebugSymbols=true;DebugType="full"
 
     - name: Setup VSTest.console.exe
       uses: darenm/Setup-VSTest@v1
@@ -46,6 +46,7 @@ jobs:
       run: Vstest.console.exe $env:Solution_Dir\$env:Test1_path\bin\$env:Configuration\$env:Test1_path.dll $env:Solution_Dir\$env:Test2_path\bin\$env:Configuration\$env:Test2_path.dll $env:Solution_Dir\$env:Test3_path\bin\$env:Configuration\$env:Test3_path.dll $env:Solution_Dir\$env:Test4_path\bin\$env:Configuration\$env:Test4_path.dll /Parallel
 
   build_and_testing_release:
+    needs: build_and_testing_debug
     name: Build and Test (Release)
     runs-on: windows-latest
 
@@ -66,7 +67,7 @@ jobs:
       run: nuget restore $env:Solution_Dir\$env:Solution_Name
 
     - name: Build application
-      run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -m -p:Configuration=$env:Configuration;DefineConstants="TRACE;LIBLOG_PUBLIC";Optimize=true;DebugSymbols=false;DebugType="pdbonly"
+      run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration;DefineConstants="TRACE;LIBLOG_PUBLIC";Optimize=true;DebugSymbols=false;DebugType="pdbonly"
 
     - name: Setup VSTest.console.exe
       uses: darenm/Setup-VSTest@v1
