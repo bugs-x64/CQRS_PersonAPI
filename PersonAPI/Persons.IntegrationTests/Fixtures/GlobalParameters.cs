@@ -1,4 +1,4 @@
-﻿namespace Persons.IntegrationTests
+﻿namespace Persons.IntegrationTests.Fixtures
 {
     public static class GlobalParameters
     {
