@@ -1,12 +1,13 @@
+name: develop pipeline
+
 on:
   push:
-    branches: [ master ]
+    branches: [ develop ]
 
   pull_request:
-    branches: [ master ]
+    branches: [ develop ]
 
 env:  
-  version: v1.0.0
   Solution_Dir: PersonAPI
   Solution_Name: PersonAPI.sln   
   Test1_path: Persons.Abstractions.UnitTests
@@ -14,15 +15,14 @@ env:
   Test3_path: Persons.UnitTests
   Test4_path: Persons.IntegrationTests
   Persons_Path: Persons
-  Configuration: Release
-
-name: v1.0.0
 
 jobs:
   build:
-    name: Build Release
-
     runs-on: windows-latest
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
 
     steps:
     - name: Checkout
@@ -40,11 +40,17 @@ jobs:
     - name: Build application
       id: builded
       run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="LIBLOG_PUBLIC"
+      env:
+        Configuration: ${{ matrix.configuration }}
   
   testing:
     needs: build
 
     runs-on: windows-latest
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
         
     steps:
     - name: Checkout
@@ -68,31 +74,5 @@ jobs:
 
     - name: Testing
       run: Vstest.console.exe $env:Solution_Dir\$env:Test1_path\bin\$env:Configuration\$env:Test1_path.dll $env:Solution_Dir\$env:Test2_path\bin\$env:Configuration\$env:Test2_path.dll $env:Solution_Dir\$env:Test3_path\bin\$env:Configuration\$env:Test3_path.dll $env:Solution_Dir\$env:Test4_path\bin\$env:Configuration\$env:Test4_path.dll /Parallel /Enablecodecoverage
-
-  artifact:
-    needs: testing
-
-    runs-on: windows-latest
-        
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-              
-    - name: Setup msbuild       
-      uses: microsoft/setup-msbuild@v1
-    
-    - name: Setup nuget
-      uses: NuGet/setup-nuget@v1.0.2
-    
-    - name: Restore NuGet Packages
-      run: nuget restore $env:Solution_Dir\$env:Solution_Name
-
-    - name: Build application
-      id: builded
-      run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="LIBLOG_PUBLIC"
-
-    - name: Create artifact   
-      uses: actions/upload-artifact@v2
-      with:
-        name: v1.0.0
-        path: PersonAPI/Persons/bin/Release/*
+      env:
+        Configuration: ${{ matrix.configuration }}
