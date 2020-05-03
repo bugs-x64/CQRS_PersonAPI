@@ -17,13 +17,12 @@ env:
   Persons_Path: Persons
 
 jobs:
-  build_and_testing:
+  build_and_testing_debug:
+    name: Build and Test (Debug)
     runs-on: windows-latest
+    env:
+      Configuration: Debug
 
-    strategy:
-      matrix:
-        configuration: [Debug, Release]
-        
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -38,14 +37,39 @@ jobs:
       run: nuget restore $env:Solution_Dir\$env:Solution_Name
 
     - name: Build application
-      run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="LIBLOG_PUBLIC"
-      env:
-        Configuration: ${{ matrix.configuration }}
+      run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="DEBUG;TRACE;LIBLOG_PUBLIC" -p:Optimize=false -p:DebugSymbols=true -p:DebugType="full"
 
     - name: Setup VSTest.console.exe
       uses: darenm/Setup-VSTest@v1
 
     - name: Testing
-      run: Vstest.console.exe $env:Solution_Dir\$env:Test1_path\bin\$env:Configuration\$env:Test1_path.dll $env:Solution_Dir\$env:Test2_path\bin\$env:Configuration\$env:Test2_path.dll $env:Solution_Dir\$env:Test3_path\bin\$env:Configuration\$env:Test3_path.dll $env:Solution_Dir\$env:Test4_path\bin\$env:Configuration\$env:Test4_path.dll /Parallel /Enablecodecoverage
-      env:
-        Configuration: ${{ matrix.configuration }}
+      run: Vstest.console.exe $env:Solution_Dir\$env:Test1_path\bin\$env:Configuration\$env:Test1_path.dll $env:Solution_Dir\$env:Test2_path\bin\$env:Configuration\$env:Test2_path.dll $env:Solution_Dir\$env:Test3_path\bin\$env:Configuration\$env:Test3_path.dll $env:Solution_Dir\$env:Test4_path\bin\$env:Configuration\$env:Test4_path.dll /Parallel
+
+  build_and_testing_release:
+    name: Build and Test (Release)
+    runs-on: windows-latest
+
+    env:
+      Configuration: Release
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+              
+    - name: Setup msbuild       
+      uses: microsoft/setup-msbuild@v1
+    
+    - name: Setup nuget
+      uses: NuGet/setup-nuget@v1.0.2
+    
+    - name: Restore NuGet Packages
+      run: nuget restore $env:Solution_Dir\$env:Solution_Name
+
+    - name: Build application
+      run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="TRACE;LIBLOG_PUBLIC" -p:Optimize=true -p:Optimize=false -p:DebugSymbols=false -p:DebugType="pdbonly"
+
+    - name: Setup VSTest.console.exe
+      uses: darenm/Setup-VSTest@v1
+
+    - name: Testing
+      run: Vstest.console.exe $env:Solution_Dir\$env:Test1_path\bin\$env:Configuration\$env:Test1_path.dll $env:Solution_Dir\$env:Test2_path\bin\$env:Configuration\$env:Test2_path.dll $env:Solution_Dir\$env:Test3_path\bin\$env:Configuration\$env:Test3_path.dll $env:Solution_Dir\$env:Test4_path\bin\$env:Configuration\$env:Test4_path.dll /Parallel
