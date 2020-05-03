@@ -20,12 +20,9 @@ namespace Persons.Service.UnitTests.Repositories
         [TestMethod]
         public void Insert_CorrectPersonData_RunWithoutException()
         {
-            var person = new Person
-            {
-                Id = Guid.NewGuid().ToString(),
-                Name = "Name",
-                BirthDay = "1977-07-07"
-            };
+            var name = "Name";
+            var birthDay = "1977-07-07";
+            var person = Person.Create(Guid.NewGuid(),name,Convert.ToDateTime(birthDay));
 
             _instance.Insert(person);
         }
@@ -36,27 +33,15 @@ namespace Persons.Service.UnitTests.Repositories
         {
             _instance.Insert(null);
         }
-        
-        [TestMethod]
-        [ExpectedException(typeof(FormatException))]
-        public void Insert_EmptyPersonId_ThrowFormatException()
-        {
-            var person = new Person {Id = string.Empty};
 
-            _instance.Insert(person);
-        }
-
-        
         [TestMethod]
         public void Find_CorrectPersonId_ReturnPersonIdEqualsInitial()
         {
             var personId = Guid.NewGuid();
-            var person = new Person
-            {
-                Id = personId.ToString(),
-                Name = "Name",
-                BirthDay = "1977-07-07"
-            };
+            var name = "Name";
+            var birthDay = "1977-07-07";
+            var person = Person.Create(personId, name, Convert.ToDateTime(birthDay));
+
             _instance.Insert(person);
 
            var result = _instance.Find(personId);

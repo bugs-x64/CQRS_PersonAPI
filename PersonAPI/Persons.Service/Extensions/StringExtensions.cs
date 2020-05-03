@@ -1,4 +1,6 @@
-﻿using Persons.Service.Constants;
+﻿using System;
+using System.Globalization;
+using Persons.Service.Constants;
 
 namespace Persons.Service.Extensions
 {
@@ -59,6 +61,23 @@ namespace Persons.Service.Extensions
         public static string DefaultFormat(this string format, params object[] args)
         {
             return string.Format(GlobalConstants.DefaultCultureInfo, format, args);
+        }
+
+        /// <summary>
+        /// Преобразует указанную строку в дату.
+        /// </summary>
+        public static DateTime ToDateTime(this string date)
+        {
+            try
+            {
+                var dateTimeFormatInfo = new DateTimeFormatInfo();
+
+                return DateTime.Parse(date, dateTimeFormatInfo);
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException($"Не удалось преобразовать в дату {date}.", e);
+            }
         }
     }
 }

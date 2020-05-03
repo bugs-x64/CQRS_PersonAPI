@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using Persons.Abstractions;
 using Persons.Abstractions.Commands;
+using Persons.Service;
 using Persons.Service.Exceptions;
+using Persons.Service.Extensions;
 using Persons.Service.Models;
 using Persons.Service.Repositories;
 
@@ -29,12 +32,10 @@ namespace Persons.Handlers
             Person person;
             try
             {
-                person = new Person
-                {
-                    BirthDay = command.BirthDay,
-                    Name = command.Name,
-                    Id = newPersonGuid.ToString()
-                };
+                person = Person.Create(newPersonGuid, command.Name, Converter.ToDateTime(command.BirthDay));
+
+                if(person is null)
+                    throw new Exception();
             }
             catch (Exception e)
             {
