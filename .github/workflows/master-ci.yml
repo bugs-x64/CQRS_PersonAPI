@@ -19,8 +19,8 @@ env:
 name: v1.0.0
 
 jobs:
-  build:
-    name: Build Release
+  build_test_release:
+    name: Build, Test and Upload Release
 
     runs-on: windows-latest
 
@@ -38,60 +38,13 @@ jobs:
       run: nuget restore $env:Solution_Dir\$env:Solution_Name
 
     - name: Build application
-      id: builded
-      run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="LIBLOG_PUBLIC"
-  
-  testing:
-    needs: build
-
-    name: Run all tests
-
-    runs-on: windows-latest
-        
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-              
-    - name: Setup msbuild       
-      uses: microsoft/setup-msbuild@v1
-    
-    - name: Setup nuget
-      uses: NuGet/setup-nuget@v1.0.2
-    
-    - name: Restore NuGet Packages
-      run: nuget restore $env:Solution_Dir\$env:Solution_Name
-
-    - name: Build application
-      id: builded
-      run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="LIBLOG_PUBLIC"
+      run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -m -p:Configuration=$env:Configuration -p:DefineConstants="TRACE LIBLOG_PUBLIC" -p:Optimize=true -p:DebugSymbols=false -p:DebugType="pdbonly"
 
     - name: Setup VSTest.console.exe
       uses: darenm/Setup-VSTest@v1
 
     - name: Testing
-      run: Vstest.console.exe $env:Solution_Dir\$env:Test1_path\bin\$env:Configuration\$env:Test1_path.dll $env:Solution_Dir\$env:Test2_path\bin\$env:Configuration\$env:Test2_path.dll $env:Solution_Dir\$env:Test3_path\bin\$env:Configuration\$env:Test3_path.dll $env:Solution_Dir\$env:Test4_path\bin\$env:Configuration\$env:Test4_path.dll /Parallel /Enablecodecoverage
-
-  artifact:
-    needs: testing
-    name: Create artifacts
-    runs-on: windows-latest
-        
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-              
-    - name: Setup msbuild       
-      uses: microsoft/setup-msbuild@v1
-    
-    - name: Setup nuget
-      uses: NuGet/setup-nuget@v1.0.2
-    
-    - name: Restore NuGet Packages
-      run: nuget restore $env:Solution_Dir\$env:Solution_Name
-
-    - name: Build application
-      id: builded
-      run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="LIBLOG_PUBLIC"
+      run: Vstest.console.exe $env:Solution_Dir\$env:Test1_path\bin\$env:Configuration\$env:Test1_path.dll $env:Solution_Dir\$env:Test2_path\bin\$env:Configuration\$env:Test2_path.dll $env:Solution_Dir\$env:Test3_path\bin\$env:Configuration\$env:Test3_path.dll $env:Solution_Dir\$env:Test4_path\bin\$env:Configuration\$env:Test4_path.dll /Parallel
 
     - name: Create artifact   
       uses: actions/upload-artifact@v2
