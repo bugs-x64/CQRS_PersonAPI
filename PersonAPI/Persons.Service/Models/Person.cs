@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using Persons.Service.Extensions;
 
 namespace Persons.Service.Models
 {
@@ -8,60 +9,63 @@ namespace Persons.Service.Models
     /// </summary>
     public class Person
     {
-        private DateTime _birthDay;
-        private Guid _id;
-
+        private const string defaultBirthdayFormat = "yyyy-MM-dd";
+        
         /// <summary>
         /// Идентификатор(Guid).
         /// </summary>
-        public string Id
-        {
-            get => _id.ToString();
-            set => _id = Guid.Parse(value);
-        }
-
+        public Guid Id { get; }
         /// <summary>
         /// Имя.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; }
 
         /// <summary>
         /// Дата рождения.
         /// </summary>
-        public string BirthDay
-        {
-            get => $"{_birthDay:yyyy-MM-dd}";
-            set
-            {
-                try
-                {
-                    const string yearFormat = "yyyy";
-                    var dateTimeFormatInfo = new DateTimeFormatInfo();
-
-                    _birthDay = DateTime.Parse(value, dateTimeFormatInfo);
-
-                    var yearBirth = _birthDay.ToUniversalTime().ToString(yearFormat, dateTimeFormatInfo);
-                    var yearNow = DateTime.UtcNow.ToString(yearFormat, dateTimeFormatInfo);
-                    var age = Convert.ToInt32(yearNow, dateTimeFormatInfo) -
-                              Convert.ToInt32(yearBirth, dateTimeFormatInfo);
-
-                    Age = age <= 120 ? age : (int?) null;
-                }
-                catch (Exception e)
-                {
-                    throw new ArgumentException($"Не удалось преобразовать в дату {value}.", e);
-                }
-            }
-        }
+        public DateTime BirthDay { get; }
 
         /// <summary>
         /// Возраст (кол-во полных лет).
         /// </summary>
-        public int? Age { get; private set; }
+        public int Age => GetAge(BirthDay);
+        
+        private Person(Guid id, string name, DateTime birthDay)
+        {
+            Id = id;
+            Name = name;
+            BirthDay = birthDay;
+        }
+
+        public static Person Create(Guid id, string name, DateTime birthDay)
+        {
+            var person = new Person(id,name,birthDay);
+
+            return person.Name.IsNullOrEmpty() || person.Age >120 ? null : person;
+        }
 
         public override string ToString()
         {
-            return $"id:{_id}, name:{Name}, BirthDay:{BirthDay}, Age:{Age}";
+            return $"id:{Id}, name:{Name}, BirthDay:{BirthDay}, Age:{Age}";
+        }
+
+        public string GetFormattedBirthDay(string format = defaultBirthdayFormat)
+        {
+            return BirthDay.ToString(format);
+        }
+        
+        /// <summary>
+        /// Возвращает возраст с указанной даты.
+        /// </summary>
+        private static int GetAge(DateTime date)
+        {
+            var today = DateTime.Today;
+            var age = today.Year - date.Year;
+
+            if (date.Date > today.AddYears(-age))
+                age--;
+
+            return age;
         }
     }
 }
