@@ -1,23 +1,27 @@
 ﻿using System;
-using Autofac;
+using AutoFixture;
+using AutoFixture.AutoMoq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Persons.Abstractions;
 using Persons.Abstractions.Commands;
+using Persons.Handlers;
 using Persons.Service.Exceptions;
 using Persons.Service.Models;
+using Persons.Service.Repositories;
 
 namespace Persons.UnitTests
 {
     [TestClass]
     public class CreatePersonCommandHandlerTests
     {
-        private ICommandHandler<CreatePersonCommand, Guid> _handler;
+        private CreatePersonCommandHandler _handler;
         
         [TestInitialize]
         public void Initialize()
         {
-            var container = Fixture.RegisterTypes();
-            _handler = container.Resolve<ICommandHandler<CreatePersonCommand, Guid>>();
+            var fixture = new Fixture();
+            fixture.Customize(new AutoMoqCustomization{ ConfigureMembers = true });
+            _handler = new CreatePersonCommandHandler(fixture.Create<IPersonRepository>());
         }
         
         [TestMethod]

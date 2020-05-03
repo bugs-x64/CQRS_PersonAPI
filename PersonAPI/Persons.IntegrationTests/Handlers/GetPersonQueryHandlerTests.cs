@@ -24,7 +24,7 @@ namespace Persons.IntegrationTests.Handlers
             _handler = container.Resolve<IQueryHandler<GetPersonQuery, PersonDto>>();
             
             _personId = Guid.NewGuid();
-            repository.Insert(new Person { Id = _personId.ToString() });
+            repository.Insert(Person.Create(_personId,"name",DateTime.Today));
         }
         
         [TestMethod]

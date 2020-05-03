@@ -1,8 +1,10 @@
 ﻿using System;
-using Autofac;
+using AutoFixture;
+using AutoFixture.AutoMoq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Persons.Abstractions;
 using Persons.Abstractions.Queries;
+using Persons.Handlers;
 using Persons.Service.Dto;
 using Persons.Service.Models;
 using Persons.Service.Repositories;
@@ -12,38 +14,25 @@ namespace Persons.UnitTests
     [TestClass]
     public class GetPersonQueryHandlerTests
     {
-        private IQueryHandler<GetPersonQuery, PersonDto> _handler;
-        private Guid _personId;
+        private GetPersonQueryHandler _handler;
         
         [TestInitialize]
         public void Initialize()
         {
-            var container = Fixture.RegisterTypes();
-            var repository = container.Resolve<IPersonRepository>();
-            _handler = container.Resolve<IQueryHandler<GetPersonQuery, PersonDto>>();
-            
-            _personId = Guid.NewGuid();
-            repository.Insert(Person.Create(_personId,"namre",DateTime.Today.AddYears(-1)));
+            var fixture = new Fixture();
+            fixture.Customize(new AutoMoqCustomization{ConfigureMembers = true});
+
+            _handler = new GetPersonQueryHandler(fixture.Create<IPersonRepository>());
         }
         
         [TestMethod]
         public void Handle_CorrectQuery_ReturnNotNullPersonDto()
         {
-            var query = new GetPersonQuery(_personId);
+            var query = new GetPersonQuery( Guid.NewGuid());
 
             var dto = _handler.Handle(query);
 
             Assert.IsNotNull(dto);
-        }
-
-        [TestMethod]
-        public void Handle_CorrectQuery_ReturnPersonIdEqualsRequested()
-        {
-            var query = new GetPersonQuery(_personId);
-
-            var dto = _handler.Handle(query);
-
-            Assert.AreEqual(_personId.ToString(),dto.Id);
         }
 
         [TestMethod]
