@@ -1,3 +1,5 @@
+name: master
+
 on:
   push:
     branches: [ master ]
@@ -16,7 +18,6 @@ env:
   Persons_Path: Persons
   Configuration: Release
 
-name: v1.0.0
 
 jobs:
   build_test_release:

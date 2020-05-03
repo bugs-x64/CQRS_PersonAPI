@@ -57,19 +57,25 @@ namespace Persons.Service.Repositories
             {
                 using (IDbConnection db = new SQLiteConnection(_connectionString))
                 {
-                    person = db.Query<Person>($"SELECT id,name,birthday FROM {repositoryName} WHERE Id = @id",
+                    var personDto = db.Query($"SELECT id,name,birthday FROM {repositoryName} WHERE Id = @id",
                         new {id = id.ToString()}).FirstOrDefault();
-                }
 
+                    if (personDto is null)
+                        throw new EntityNotFoundException<Person>();
+
+                    person = Person.Create(Guid.Parse(personDto.id), personDto.name,
+                        Converter.ToDateTime(personDto.birthday));
+                }
+            }
+            catch (EntityNotFoundException<Person>)
+            {
+                throw;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw new Exception($"Не удалось получить запись из репозитория, ошибка {e.Message}", e);
             }
-
-            if(person?.Id is null)
-                throw new EntityNotFoundException<Person>();
 
             return person;
         }
@@ -87,9 +93,9 @@ namespace Persons.Service.Repositories
                     var sqlQuery = $"INSERT INTO {repositoryName}(id,name,birthday) VALUES(@id,@name,@birthday)";
                     db.Query(sqlQuery, new
                     {
-                        id = item.Id,
+                        id = item.Id.ToString(),
                         name = item.Name,
-                        birthday = item.BirthDay
+                        birthday = item.GetFormattedBirthDay()
                     });
                 }
             }

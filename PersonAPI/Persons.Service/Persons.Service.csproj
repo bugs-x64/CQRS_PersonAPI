@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Constants\GlobalConstants.cs" />
     <Compile Include="Constants\RouteConstants.cs" />
+    <Compile Include="Converters.cs" />
     <Compile Include="Dto\PersonDto.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\UnprocessableEntityException.cs" />

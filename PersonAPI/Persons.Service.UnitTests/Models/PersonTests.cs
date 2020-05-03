@@ -7,62 +7,41 @@ namespace Persons.Service.UnitTests.Models
     [TestClass]
     public class PersonTests
     {
+        private const string correctName = "Name";
+        private readonly DateTime _correctDate = DateTime.Parse("1977-07-07");
+        
         [TestMethod]
-        public void Initialization_CorrectNameAndDate_CreateWithoutException()
+        public void Create_CorrectNameAndDate_CreateWithoutException()
         {
-            var name = "Test";
-            var birthDay = "1977-07-07";
-
-            var _ = new Person {Name = name, BirthDay = birthDay};
+            var _ = Person.Create(Guid.NewGuid(), correctName,_correctDate);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void Initialization_IncorrectDate_ThrowFormatException()
+        public void Create_NullName_PersonIsNull()
         {
-            var birthDay = "wrong";
+            var result = Person.Create(Guid.NewGuid(), null,_correctDate);
 
-            var _ = new Person {BirthDay = birthDay};
+            Assert.IsNull(result);
         }
         
         [TestMethod]
-        public void Initialization_CorrectDate_InitialValueEqualsAssigned()
+        public void Create_AgeMore120_PersonIsNull()
         {
-            var birthDay = "1977-07-07";
+            const string birthDay = "1799-01-01";
+            
+            var result = Person.Create(Guid.NewGuid(), correctName,Converter.ToDateTime(birthDay));
 
-            var result = new Person {BirthDay = birthDay};
-
-            Assert.AreEqual(birthDay,result.BirthDay);
+            Assert.IsNull(result);
         }
 
         [TestMethod]
-        public void Initialization_CorrectName_InitialValueEqualsAssigned()
+        public void Create_AgeLessOrEqual120_PersonNotNull()
         {
-            var name = "name";
+            const string birthDay = "1977-07-07";
+            
+            var result = Person.Create(Guid.NewGuid(), correctName,Converter.ToDateTime(birthDay));
 
-            var result = new Person {Name = name};
-
-            Assert.AreEqual(name,result.Name);
-        }
-        
-        [TestMethod]
-        public void Initialization_AgeMore120_AgeIsNull()
-        {
-            var birthDay = "1799-01-01";
-
-            var result = new Person {BirthDay = birthDay};
-
-            Assert.IsNull(result.Age);
-        }
-
-        [TestMethod]
-        public void Initialization_AgeLessOrEqual120_AgeNotNull()
-        {
-            var birthDay = "1977-07-07";
-
-            var result = new Person {BirthDay = birthDay};
-
-            Assert.IsNotNull(result.Age);
+            Assert.IsNotNull(result);
         }
     }
 }
