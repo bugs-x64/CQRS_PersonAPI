@@ -39,6 +39,12 @@ jobs:
 
     - name: Build application
       run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="LIBLOG_PUBLIC"
+      
+    - name: Create artifact   
+    - uses: actions/upload-artifact@v2
+      with:
+        name: master_build
+        path: $env:Solution_Dir\$env:Persons_Path\bin\$env:Configuration
 
     - name: Test Abstractions
       run: Vstest.console.exe $env:Solution_Dir\$env:Persons_Abstractions_UnitTests_Path\bin\$env:Configuration\$env:Persons_Abstractions_UnitTests_Path.dll 
@@ -51,9 +57,3 @@ jobs:
 
     - name: Test Persons.Integration
       run: Vstest.console.exe $env:Solution_Dir\$env:Persons_IntegrationTests_Path\bin\$env:Configuration\$env:Persons_IntegrationTests_Path.dll
-
-    - name: Create artifact   
-    - uses: actions/upload-artifact@v2
-      with:
-        name: master_build
-        path: $env:Solution_Dir\$env:Persons_Path\bin\$env:Configuration
