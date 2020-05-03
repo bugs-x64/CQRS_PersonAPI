@@ -7,17 +7,18 @@ on:
   pull_request:
     branches: [ master ]
 
+env:  
+  Solution_Dir: PersonAPI
+  Solution_Name: PersonAPI.sln   
+  Persons_Abstractions_UnitTests_Path: Persons.Abstractions.UnitTests
+  Persons_Service_UnitTests_Path: Persons.Service.UnitTests
+  Persons_UnitTests_Path: Persons.UnitTests
+  Persons_IntegrationTests_Path: Persons.IntegrationTests
+  Persons_Path: Persons
+  Configuration: Release
+
 jobs:
-  build_and_test:
-    env:  
-      Solution_Dir: PersonAPI
-      Solution_Name: PersonAPI.sln   
-      Persons_Abstractions_UnitTests_Path: Persons.Abstractions.UnitTests
-      Persons_Service_UnitTests_Path: Persons.Service.UnitTests
-      Persons_UnitTests_Path: Persons.UnitTests
-      Persons_IntegrationTests_Path: Persons.IntegrationTests
-      Persons_Path: Persons
-      Configuration: Release
+  build:
 
     runs-on: windows-latest
 
@@ -27,9 +28,6 @@ jobs:
               
     - name: Setup msbuild       
       uses: microsoft/setup-msbuild@v1
-        
-    - name: Setup VSTest.console.exe
-      uses: darenm/Setup-VSTest@v1
     
     - name: Setup nuget
       uses: NuGet/setup-nuget@v1.0.2
@@ -39,12 +37,21 @@ jobs:
 
     - name: Build application
       run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="LIBLOG_PUBLIC"
+  
+  testing:
+    needs: build
+        
+    - name: Setup VSTest.console.exe
+      uses: darenm/Setup-VSTest@v1
 
+    - name: Testing
+      run: Vstest.console.exe $env:Solution_Dir\$env:Persons_Abstractions_UnitTests_Path\bin\$env:Configuration\$env:Persons_Abstractions_UnitTests_Path.dll $env:Solution_Dir\$env:Persons_Service_UnitTests_Path\bin\$env:Configuration\$env:Persons_Service_UnitTests_Path.dll $env:Solution_Dir\$env:Persons_UnitTests_Path\bin\$env:Configuration\$env:Persons_UnitTests_Path.dll $env:Solution_Dir\$env:Persons_IntegrationTests_Path\bin\$env:Configuration\$env:Persons_IntegrationTests_Path.dll /Parallel /Enablecodecoverage
+
+  create_artifacts:
+    needs: testing
+    
     - name: Create artifact   
       uses: actions/upload-artifact@v2
       with:
         name: master_build
         path: PersonAPI/Persons/bin/Release/*
-
-    - name: Testing
-      run: Vstest.console.exe $env:Solution_Dir\$env:Persons_Abstractions_UnitTests_Path\bin\$env:Configuration\$env:Persons_Abstractions_UnitTests_Path.dll $env:Solution_Dir\$env:Persons_Service_UnitTests_Path\bin\$env:Configuration\$env:Persons_Service_UnitTests_Path.dll $env:Solution_Dir\$env:Persons_UnitTests_Path\bin\$env:Configuration\$env:Persons_UnitTests_Path.dll $env:Solution_Dir\$env:Persons_IntegrationTests_Path\bin\$env:Configuration\$env:Persons_IntegrationTests_Path.dll /Parallel /Enablecodecoverage
