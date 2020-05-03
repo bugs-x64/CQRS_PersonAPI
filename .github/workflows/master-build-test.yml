@@ -69,7 +69,7 @@ jobs:
     - name: Testing
       run: Vstest.console.exe $env:Solution_Dir\$env:Test1_path\bin\$env:Configuration\$env:Test1_path.dll $env:Solution_Dir\$env:Test2_path\bin\$env:Configuration\$env:Test2_path.dll $env:Solution_Dir\$env:Test3_path\bin\$env:Configuration\$env:Test3_path.dll $env:Solution_Dir\$env:Test4_path\bin\$env:Configuration\$env:Test4_path.dll /Parallel /Enablecodecoverage
 
-  publish:
+  artifact:
     needs: testing
 
     runs-on: windows-latest
