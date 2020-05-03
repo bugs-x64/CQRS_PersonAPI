@@ -46,14 +46,5 @@ jobs:
         name: master_build
         path: PersonAPI/Persons/bin/Release/*
 
-    - name: Test Abstractions
-      run: Vstest.console.exe $env:Solution_Dir\$env:Persons_Abstractions_UnitTests_Path\bin\$env:Configuration\$env:Persons_Abstractions_UnitTests_Path.dll 
-
-    - name: Test Service
-      run: Vstest.console.exe $env:Solution_Dir\$env:Persons_Service_UnitTests_Path\bin\$env:Configuration\$env:Persons_Service_UnitTests_Path.dll
-
-    - name: Test Persons
-      run: Vstest.console.exe $env:Solution_Dir\$env:Persons_UnitTests_Path\bin\$env:Configuration\$env:Persons_UnitTests_Path.dll
-
-    - name: Test Persons.Integration
-      run: Vstest.console.exe $env:Solution_Dir\$env:Persons_IntegrationTests_Path\bin\$env:Configuration\$env:Persons_IntegrationTests_Path.dll
+    - name: Testing
+      run: Vstest.console.exe $env:Solution_Dir\$env:Persons_Abstractions_UnitTests_Path\bin\$env:Configuration\$env:Persons_Abstractions_UnitTests_Path.dll $env:Solution_Dir\$env:Persons_Service_UnitTests_Path\bin\$env:Configuration\$env:Persons_Service_UnitTests_Path.dll $env:Solution_Dir\$env:Persons_UnitTests_Path\bin\$env:Configuration\$env:Persons_UnitTests_Path.dll $env:Solution_Dir\$env:Persons_IntegrationTests_Path\bin\$env:Configuration\$env:Persons_IntegrationTests_Path.dll /Parallel /Enablecodecoverage
