@@ -8,6 +8,8 @@ namespace Persons.Service
     /// </summary>
     public static class Converter
     {
+        private static IFormatProvider DateTimeFormatInfo => new DateTimeFormatInfo();
+
         /// <summary>
         /// Преобразует строку в дату.
         /// </summary>
@@ -15,9 +17,22 @@ namespace Persons.Service
         {
             try
             {
-                var dateTimeFormatInfo = new DateTimeFormatInfo();
+                return DateTime.Parse(date, DateTimeFormatInfo);
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException($"Не удалось преобразовать в дату {date}.", e);
+            }
+        }
 
-                return DateTime.Parse(date, dateTimeFormatInfo);
+        /// <summary>
+        /// Преобразует число в дату.
+        /// </summary>
+        public static DateTime ToDateTime(long date)
+        {
+            try
+            {
+                return Convert.ToDateTime(date, DateTimeFormatInfo);
             }
             catch (Exception e)
             {

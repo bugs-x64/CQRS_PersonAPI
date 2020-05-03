@@ -46,7 +46,7 @@ namespace Persons.Service.UnitTests.Repositories
 
            var result = _instance.Find(personId);
 
-           Assert.AreEqual(personId.ToString(),result.Id);
+           Assert.AreEqual(personId,result.Id);
         }
 
         
