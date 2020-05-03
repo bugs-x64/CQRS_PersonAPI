@@ -2,11 +2,8 @@
 using AutoFixture;
 using AutoFixture.AutoMoq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Persons.Abstractions;
 using Persons.Abstractions.Queries;
 using Persons.Handlers;
-using Persons.Service.Dto;
-using Persons.Service.Models;
 using Persons.Service.Repositories;
 
 namespace Persons.UnitTests

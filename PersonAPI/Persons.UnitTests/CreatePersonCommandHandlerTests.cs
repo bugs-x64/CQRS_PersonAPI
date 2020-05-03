@@ -2,7 +2,6 @@
 using AutoFixture;
 using AutoFixture.AutoMoq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Persons.Abstractions;
 using Persons.Abstractions.Commands;
 using Persons.Handlers;
 using Persons.Service.Exceptions;
