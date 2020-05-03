@@ -17,6 +17,12 @@ namespace Persons.IntegrationTests
                 process.Kill();
             }
 
+#if DEBUG
+            const string currentConfiguration = "debug";
+#else
+            const string currentConfiguration = "release";
+#endif
+
             var proc = new Process
             {
                 StartInfo =
@@ -25,7 +31,7 @@ namespace Persons.IntegrationTests
                     Arguments = $"-host {GlobalParameters.Host}",
                     CreateNoWindow = false,
                     UseShellExecute = true,
-                    WorkingDirectory = Environment.CurrentDirectory + "\\..\\..\\..\\persons\\bin\\debug"
+                    WorkingDirectory = Environment.CurrentDirectory + "\\..\\..\\..\\persons\\bin\\" + currentConfiguration
                 }
             };
 
