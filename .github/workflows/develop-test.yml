@@ -39,8 +39,14 @@ jobs:
     - name: Build application
       run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="LIBLOG_PUBLIC"
 
-    - name: Test application
-      run: Vstest.console.exe $env:Solution_Dir\$env:Persons_Abstractions_UnitTests_Path\bin\$env:Configuration\$env:Persons_Abstractions_UnitTests_Path.dll |
-        $env:Solution_Dir\$env:Persons_Service_UnitTests_Path\bin\$env:Configuration\$env:Persons_Service_UnitTests_Path.dll |
-        $env:Solution_Dir\$env:Persons_UnitTests_Path\bin\$env:Configuration\$env:Persons_UnitTests_Path.dll |
-        $env:Solution_Dir\$env:Persons_IntegrationTests_Path\bin\$env:Configuration\$env:Persons_IntegrationTests_Path.dll
+    - name: Test Abstractions
+      run: Vstest.console.exe $env:Solution_Dir\$env:Persons_Abstractions_UnitTests_Path\bin\$env:Configuration\$env:Persons_Abstractions_UnitTests_Path.dll 
+
+    - name: Test Service
+      run: Vstest.console.exe $env:Solution_Dir\$env:Persons_Service_UnitTests_Path\bin\$env:Configuration\$env:Persons_Service_UnitTests_Path.dll
+
+    - name: Test Persons
+      run: Vstest.console.exe $env:Solution_Dir\$env:Persons_UnitTests_Path\bin\$env:Configuration\$env:Persons_UnitTests_Path.dll
+
+    - name: Test Persons.Integration
+      run: Vstest.console.exe $env:Solution_Dir\$env:Persons_IntegrationTests_Path\bin\$env:Configuration\$env:Persons_IntegrationTests_Path.dll
