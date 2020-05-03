@@ -16,11 +16,11 @@ env:
   Persons_Path: Persons
   Configuration: Release
 
-name: $env:version
+name: v1.0.0
 
 jobs:
   build:
-    name: Build $env:Configuration
+    name: Build Release
 
     runs-on: windows-latest
 
@@ -94,5 +94,5 @@ jobs:
     - name: Create artifact   
       uses: actions/upload-artifact@v2
       with:
-        name: $env:version
+        name: v1.0.0
         path: PersonAPI/Persons/bin/Release/*
