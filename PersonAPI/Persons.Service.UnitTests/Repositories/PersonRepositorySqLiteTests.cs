@@ -9,7 +9,7 @@ namespace Persons.Service.UnitTests.Repositories
     [TestClass]
     public class PersonRepositorySqLiteTests
     {
-        private IPersonRepository _instance;
+        private PersonRepositorySqLite _instance;
 
         [TestInitialize]
         public void Initialize()

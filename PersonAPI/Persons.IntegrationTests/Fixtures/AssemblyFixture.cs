@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Persons.IntegrationTests
+namespace Persons.IntegrationTests.Fixtures
 {
     [TestClass]
     public class AssemblyFixture

@@ -9,7 +9,7 @@ using Persons.Service.Dto;
 using Persons.Service.Repositories;
 using Serilog;
 
-namespace Persons.UnitTests
+namespace Persons.IntegrationTests.Fixtures
 {
     public class Fixture
     {

@@ -2,9 +2,10 @@
 using System.Threading.Tasks;
 using Flurl.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Persons.IntegrationTests.Fixtures;
 using Persons.Service.Dto;
 
-namespace Persons.IntegrationTests
+namespace Persons.IntegrationTests.Modules
 {
     [TestClass]
     public class CreatePersonTests
