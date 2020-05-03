@@ -44,7 +44,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: master_build
-        path: $env:Solution_Dir/$env:Persons_Path/bin/$env:Configuration/*
+        path: PersonAPI/Persons/bin/Release/*
 
     - name: Test Abstractions
       run: Vstest.console.exe $env:Solution_Dir\$env:Persons_Abstractions_UnitTests_Path\bin\$env:Configuration\$env:Persons_Abstractions_UnitTests_Path.dll 
