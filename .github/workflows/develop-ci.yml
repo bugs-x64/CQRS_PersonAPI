@@ -37,7 +37,7 @@ jobs:
       run: nuget restore $env:Solution_Dir\$env:Solution_Name
 
     - name: Build application
-      run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="DEBUG;TRACE;LIBLOG_PUBLIC" -p:Optimize=false -p:DebugSymbols=true -p:DebugType="full"
+      run: msbuild $env:Solution_Dir\$env:Solution_Name -t:build -p:Configuration=$env:Configuration -m -p:DefineConstants="DEBUG;TRACE;LIBLOG_PUBLIC" -p:Optimize="false" -p:DebugSymbols="true" -p:DebugType="full"
 
     - name: Setup VSTest.console.exe
       uses: darenm/Setup-VSTest@v1
