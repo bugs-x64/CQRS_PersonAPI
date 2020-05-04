@@ -8,15 +8,19 @@ namespace Persons.Modules
     /// </summary>
     public sealed class HomeModule : NancyModule
     {
+        private readonly ILog _log;
+
         public HomeModule(ILog log)
         {
-            Get("/",_=>
-            {
-                const string hello = "Hello";
-                log.Log(LogLevel.Debug, () => hello);
+            _log = log;
+            Get("/", _ => GetHome());
+        }
 
-                return hello;
-            });
+        public string GetHome()
+        {
+            const string hello = "Hello";
+            _log.Log(LogLevel.Debug, () => hello);
+            return hello;
         }
     }
 }

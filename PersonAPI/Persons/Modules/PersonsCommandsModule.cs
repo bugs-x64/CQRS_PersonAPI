@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using Nancy;
 using Nancy.Responses.Negotiation;
 using Newtonsoft.Json;
@@ -49,7 +50,7 @@ namespace Persons.Modules
         /// достает содержимое тела запроса.
         /// </remarks>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>")]
-        private Negotiator CreatePerson()
+        public Negotiator CreatePerson()
         {
             try
             {
@@ -90,10 +91,10 @@ namespace Persons.Modules
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>")]
         private CreatePersonCommand GetCommand()
         {
-            var readToString = Request?.Body?.ReadToString();
+            var readToString = Request?.Body?.ReadToString(Encoding.UTF8);
             _log.Log(LogLevel.Debug, () => $"Поступила команда:{Environment.NewLine}{readToString}");
 
-            var person = JsonConvert.DeserializeObject<PersonDto>(readToString);
+            var person = JsonConvert.DeserializeObject<PersonDto>(readToString ?? string.Empty);
 
             return new CreatePersonCommand(person.Name, person.BirthDay);
         }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 using Persons.Service.Extensions;
 
 namespace Persons.Service.Exceptions
@@ -12,19 +11,6 @@ namespace Persons.Service.Exceptions
     public class EntityNotFoundException<TEntity> : Exception
     {
         public EntityNotFoundException() : base(Resources.EntityNotFoundException.DefaultFormat(typeof(TEntity)))
-        {
-        }
-
-        public EntityNotFoundException(string message) : base(message)
-        {
-        }
-
-        public EntityNotFoundException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected EntityNotFoundException(SerializationInfo serializationInfo, StreamingContext streamingContext) :
-            base(serializationInfo, streamingContext)
         {
         }
     }

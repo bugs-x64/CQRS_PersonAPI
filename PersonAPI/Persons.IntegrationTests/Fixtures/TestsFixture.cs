@@ -11,7 +11,7 @@ using Serilog;
 
 namespace Persons.IntegrationTests.Fixtures
 {
-    public class Fixture
+    public static class TestsFixture
     {
         public static IContainer RegisterTypes()
         {

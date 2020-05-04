@@ -19,7 +19,7 @@ namespace Persons.IntegrationTests.Handlers
         [TestInitialize]
         public void Initialize()
         {
-            var container = Fixture.RegisterTypes();
+            var container = TestsFixture.RegisterTypes();
             var repository = container.Resolve<IPersonRepository>();
             _handler = container.Resolve<IQueryHandler<GetPersonQuery, PersonDto>>();
             
