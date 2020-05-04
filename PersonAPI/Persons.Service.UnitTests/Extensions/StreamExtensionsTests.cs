@@ -25,7 +25,7 @@ namespace Persons.Service.UnitTests.Extensions
         }
 
         [DataTestMethod]
-        [DataRow]
+        [DataRow(null)]
         public void ReadToString_Null_ThrowArgumentNullException(Stream stream)
         {
             Assert.ThrowsException<ArgumentNullException>(() => stream.ReadToString(_encoding));
