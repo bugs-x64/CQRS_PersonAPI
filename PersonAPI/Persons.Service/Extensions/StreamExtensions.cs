@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 namespace Persons.Service.Extensions
 {
@@ -12,7 +13,7 @@ namespace Persons.Service.Extensions
         /// Читает поток в строку.
         /// </summary>
         /// <exception cref="ArgumentNullException"></exception>
-        public static string ReadToString(this Stream stream)
+        public static string ReadToString(this Stream stream, Encoding encoding)
         {
             if (stream is null)
                 throw new ArgumentNullException(nameof(stream));
@@ -24,8 +25,7 @@ namespace Persons.Service.Extensions
 
             stream.Position = 0;
 
-            //todo по-хорошему надо перегрузку с выбором кодировки.
-            return System.Text.Encoding.Default.GetString(data);
+            return encoding.GetString(data);
         }
     }
 }

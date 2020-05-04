@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\StreamExtensionsTests.cs" />
     <Compile Include="Models\PersonTests.cs" />
     <Compile Include="Repositories\PersonRepositorySqLiteTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

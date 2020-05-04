@@ -51,8 +51,6 @@ namespace Persons.Service.Repositories
         /// <inheritdoc />
         public Person Find(Guid id)
         {
-            Person person;
-
             try
             {
                 using (IDbConnection db = new SQLiteConnection(_connectionString))
@@ -63,7 +61,7 @@ namespace Persons.Service.Repositories
                     if (personDto is null)
                         throw new EntityNotFoundException<Person>();
 
-                    person = Person.Create(Guid.Parse(personDto.id), personDto.name,
+                    return Person.Create(Guid.Parse(personDto.id), personDto.name,
                         Converter.ToDateTime(personDto.birthday));
                 }
             }
@@ -76,8 +74,6 @@ namespace Persons.Service.Repositories
                 Console.WriteLine(e);
                 throw new Exception($"Не удалось получить запись из репозитория, ошибка {e.Message}", e);
             }
-
-            return person;
         }
         
         /// <inheritdoc />
