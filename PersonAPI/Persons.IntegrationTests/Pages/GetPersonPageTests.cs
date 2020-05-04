@@ -8,10 +8,10 @@ using Newtonsoft.Json;
 using Persons.IntegrationTests.Fixtures;
 using Persons.Service.Dto;
 
-namespace Persons.IntegrationTests.Modules
+namespace Persons.IntegrationTests.Pages
 {
     [TestClass]
-    public class GetPersonTests
+    public class GetPersonPageTests
     {
         private readonly string _getPersonUrl = GlobalParameters.Host + "/api/v1/persons";
         private string _newPersonLocationPath;
@@ -34,7 +34,7 @@ namespace Persons.IntegrationTests.Modules
 
         [TestMethod]
         [Timeout(GlobalParameters.TestTimeoutMilliseconds)]
-        public async Task GetPerson_WhenCorrectData_ReturnOk()
+        public async Task GetPerson_CorrectData_ReturnOk()
         {
             var message = await GlobalParameters.Host
                 .AppendPathSegment(_newPersonLocationPath)
@@ -45,7 +45,7 @@ namespace Persons.IntegrationTests.Modules
         
         [TestMethod]
         [Timeout(GlobalParameters.TestTimeoutMilliseconds)]
-        public async Task  GetPerson_WhenCorrectData_ReturnJsonDto()
+        public async Task  GetPerson_CorrectData_ReturnJsonDto()
         {
             var message = await GlobalParameters.Host
                 .AppendPathSegment(_newPersonLocationPath)
@@ -56,7 +56,7 @@ namespace Persons.IntegrationTests.Modules
 
         [TestMethod]
         [Timeout(GlobalParameters.TestTimeoutMilliseconds)]
-        public async Task  GetPerson_WhenNonexistentId_ReturnNotFound()
+        public async Task  GetPerson_NonexistentId_ReturnNotFound()
         {
             try
             {
@@ -72,7 +72,7 @@ namespace Persons.IntegrationTests.Modules
 
         [TestMethod]
         [Timeout(GlobalParameters.TestTimeoutMilliseconds)]
-        public async Task  GetPerson_WhenIncorrectId_ReturnNotFound()
+        public async Task  GetPerson_IncorrectId_ReturnNotFound()
         {
             try
             {
