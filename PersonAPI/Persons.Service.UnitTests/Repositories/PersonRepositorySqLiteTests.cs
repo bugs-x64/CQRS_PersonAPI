@@ -9,28 +9,30 @@ namespace Persons.Service.UnitTests.Repositories
     [TestClass]
     public class PersonRepositorySqLiteTests
     {
-        private PersonRepositorySqLite _instance;
-
-        [TestInitialize]
-        public void Initialize()
+        private const string correctName = "Name";
+        private const string correctDate = "1990-09-09";
+        private readonly Guid _personId = Guid.NewGuid();
+        private static PersonRepositorySqLite Instance => new PersonRepositorySqLite();
+        
+        [TestMethod]
+        public void Initialize_CorrectPersonData_RunWithoutException()
         {
-            _instance = new PersonRepositorySqLite();
+            var _ = new PersonRepositorySqLite();
         }
+
         
         [TestMethod]
         public void Insert_CorrectPersonData_RunWithoutException()
         {
-            var name = "Name";
-            var birthDay = "1977-07-07";
-            var person = Person.Create(Guid.NewGuid(),name,Convert.ToDateTime(birthDay));
+            var person = Person.Create(_personId,correctName,Convert.ToDateTime(correctDate));
 
-            _instance.Insert(person);
+            Instance.Insert(person);
         }
 
         [TestMethod]
         public void Insert_NullData_ThrowArgumentNullException()
         {
-            void Action() => _instance.Insert(null);
+            void Action() => Instance.Insert(null);
 
             Assert.ThrowsException<ArgumentNullException>(Action);
         }
@@ -38,16 +40,13 @@ namespace Persons.Service.UnitTests.Repositories
         [TestMethod]
         public void Find_CorrectPersonId_ReturnPersonIdEqualsInitial()
         {
-            var personId = Guid.NewGuid();
-            var name = "Name";
-            var birthDay = "1977-07-07";
-            var person = Person.Create(personId, name, Convert.ToDateTime(birthDay));
+            var person = Person.Create(_personId, correctName, Convert.ToDateTime(correctDate));
 
-            _instance.Insert(person);
+            Instance.Insert(person);
 
-           var result = _instance.Find(personId);
+           var result = Instance.Find(_personId);
 
-           Assert.AreEqual(personId,result.Id);
+           Assert.AreEqual(_personId,result.Id);
         }
 
         
@@ -56,7 +55,7 @@ namespace Persons.Service.UnitTests.Repositories
         {
            var person = Guid.NewGuid();
 
-           void Action() => _instance.Find(person);
+           void Action() => Instance.Find(person);
 
            Assert.ThrowsException<EntityNotFoundException<Person>>(Action);
         }
