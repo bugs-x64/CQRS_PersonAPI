@@ -28,10 +28,11 @@ namespace Persons.Service.UnitTests.Repositories
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void Insert_NullData_ThrowArgumentNullException()
         {
-            _instance.Insert(null);
+            void Action() => _instance.Insert(null);
+
+            Assert.ThrowsException<ArgumentNullException>(Action);
         }
 
         [TestMethod]
@@ -51,12 +52,13 @@ namespace Persons.Service.UnitTests.Repositories
 
         
         [TestMethod]
-        [ExpectedException(typeof(EntityNotFoundException<Person>))]
         public void Find_NonexistentPersonId_ThrowEntityNotFoundException()
         {
-            var person = Guid.NewGuid();
+           var person = Guid.NewGuid();
 
-           _instance.Find(person);
+           void Action() => _instance.Find(person);
+
+           Assert.ThrowsException<EntityNotFoundException<Person>>(Action);
         }
     }
 }

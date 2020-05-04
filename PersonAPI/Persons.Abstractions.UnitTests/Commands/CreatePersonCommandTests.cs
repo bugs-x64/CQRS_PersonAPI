@@ -16,13 +16,15 @@ namespace Persons.Abstractions.UnitTests.Commands
             var _ = new CreatePersonCommand(correctName, correctBirthDay);
         }
 
-        [DataTestMethod]  
-        [DataRow(null, correctBirthDay)]  
-        [DataRow(correctName, null)]  
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void Initialization_NullNameOrDate_ThrowArgumentNullException(string name, string birthday)
+        [DataTestMethod]
+        [DataRow(null, correctBirthDay)]
+        [DataRow(correctName, null)]
+        [DataRow]
+        public void Initialization_NullNameOrDate_ThrowArgumentNullException(string name = null, string birthday = null)
         {
-            var _ = new CreatePersonCommand(name, birthday);
+            void Action() => new CreatePersonCommand(name, birthday);
+
+            Assert.ThrowsException<ArgumentNullException>(Action);
         }
     }
 }
