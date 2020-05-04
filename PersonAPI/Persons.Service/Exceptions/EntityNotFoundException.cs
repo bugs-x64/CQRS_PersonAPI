@@ -14,18 +14,5 @@ namespace Persons.Service.Exceptions
         public EntityNotFoundException() : base(Resources.EntityNotFoundException.DefaultFormat(typeof(TEntity)))
         {
         }
-
-        public EntityNotFoundException(string message) : base(message)
-        {
-        }
-
-        public EntityNotFoundException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected EntityNotFoundException(SerializationInfo serializationInfo, StreamingContext streamingContext) :
-            base(serializationInfo, streamingContext)
-        {
-        }
     }
 }
