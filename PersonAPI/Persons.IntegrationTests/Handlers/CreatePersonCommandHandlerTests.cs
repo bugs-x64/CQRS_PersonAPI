@@ -17,7 +17,7 @@ namespace Persons.IntegrationTests.Handlers
         [TestInitialize]
         public void Initialize()
         {
-            var container = Fixture.RegisterTypes();
+            var container = TestsFixture.RegisterTypes();
             _handler = container.Resolve<ICommandHandler<CreatePersonCommand, Guid>>();
         }
         
