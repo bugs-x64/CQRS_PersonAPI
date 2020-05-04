@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Flurl.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Nancy;
 using Persons.IntegrationTests.Fixtures;
 using Persons.Service.Dto;
 using HttpStatusCode = System.Net.HttpStatusCode;

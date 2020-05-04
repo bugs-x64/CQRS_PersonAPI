@@ -24,11 +24,10 @@ namespace Persons.Service.UnitTests.Extensions
             }
         }
 
-        [TestMethod]
-        public void ReadToString_Null_ThrowArgumentNullException()
+        [DataTestMethod]
+        [DataRow]
+        public void ReadToString_Null_ThrowArgumentNullException(Stream stream)
         {
-            Stream stream = null;
-
             Assert.ThrowsException<ArgumentNullException>(() => stream.ReadToString(_encoding));
         }
     }

@@ -22,9 +22,7 @@ namespace Persons.Abstractions.UnitTests.Commands
         [DataRow]
         public void Initialization_NullNameOrDate_ThrowArgumentNullException(string name = null, string birthday = null)
         {
-            void Action() => new CreatePersonCommand(name, birthday);
-
-            Assert.ThrowsException<ArgumentNullException>(Action);
+            Assert.ThrowsException<ArgumentNullException>(()=>new CreatePersonCommand(name, birthday));
         }
     }
 }

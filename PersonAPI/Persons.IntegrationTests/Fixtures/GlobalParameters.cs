@@ -7,7 +7,7 @@
         /// <summary>
         /// Максимальное время выполнения запроса.
         /// </summary>
-        public static int RequestTimeoutSeconds { get; } = 2;
+        public static int RequestTimeoutSeconds { get; } = 5;
 
         /// <summary>
         /// Максимальное время выполнения кейса.

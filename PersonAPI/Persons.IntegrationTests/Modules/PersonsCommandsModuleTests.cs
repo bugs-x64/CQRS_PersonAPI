@@ -2,9 +2,6 @@
 using System.IO;
 using System.Text;
 using Autofac;
-using AutoFixture;
-using AutoFixture.AutoMoq;
-using Flurl.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nancy;
 using Newtonsoft.Json;
@@ -13,7 +10,6 @@ using Persons.Abstractions.Commands;
 using Persons.IntegrationTests.Fixtures;
 using Persons.Logging;
 using Persons.Modules;
-using Persons.Service.Dto;
 
 namespace Persons.IntegrationTests.Modules
 {

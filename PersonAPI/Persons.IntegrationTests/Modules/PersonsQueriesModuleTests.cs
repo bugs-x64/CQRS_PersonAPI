@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Autofac;
-using Flurl;
-using Flurl.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nancy;
-using Nancy.Responses.Negotiation;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Persons.Abstractions;
 using Persons.Abstractions.Queries;
 using Persons.IntegrationTests.Fixtures;

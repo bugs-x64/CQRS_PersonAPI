@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 using Persons.Service.Extensions;
 
 namespace Persons.Service.Exceptions
