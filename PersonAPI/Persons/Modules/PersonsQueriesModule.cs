@@ -36,7 +36,7 @@ namespace Persons.Modules
         /// Выполняет запрос на получение <see cref="PersonDto"/> по <paramref name="id"/>.
         /// </summary>
         /// <param name="id">Идентификатор сущности в репозитории.</param>
-        private Negotiator GetPerson(string id)
+        public Negotiator GetPerson(string id)
         {
             Guid guid;
             try
@@ -54,7 +54,8 @@ namespace Persons.Modules
                 var result = _queryHandler.Handle(getPersonQuery);
 
                 return Negotiate
-                    .WithModel(result);
+                    .WithModel(result)
+                    .WithStatusCode(HttpStatusCode.OK);
             }
             catch(EntityNotFoundException<Person>)
             {
