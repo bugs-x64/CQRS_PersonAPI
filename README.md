@@ -1,5 +1,5 @@
 # About
-![](https://github.com/bugs-x64/CQRS_PersonAPI/workflows/develop/badge.svg?branch=develop) ![](https://github.com/bugs-x64/CQRS_PersonAPI/workflows/master/badge.svg?branch=master)
+![](https://github.com/bugs-x64/CQRS_PersonAPI/workflows/master/badge.svg?branch=master)
 
 
 Example of CQRS pattern REST API.
